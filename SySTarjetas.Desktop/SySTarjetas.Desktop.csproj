@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3934B948-C4E9-40AC-BAD2-D8A4BF1CA61A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SySTarjetas.Desktop</RootNamespace>
+    <AssemblyName>SySTarjetas.Desktop</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Collections" />
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Diagnostics.Contracts" />
+    <Reference Include="System.Diagnostics.Debug" />
+    <Reference Include="System.Diagnostics.Tools" />
+    <Reference Include="System.Globalization" />
+    <Reference Include="System.Linq" />
+    <Reference Include="System.Linq.Expressions" />
+    <Reference Include="System.ObjectModel" />
+    <Reference Include="System.Reflection" />
+    <Reference Include="System.Reflection.Extensions" />
+    <Reference Include="System.Reflection.Primitives" />
+    <Reference Include="System.Resources.ResourceManager" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Threading" />
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Telerik.WinControls">
+      <HintPath>..\SharedLibs\Telerik.WinControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.GridView">
+      <HintPath>..\SharedLibs\Telerik.WinControls.GridView.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.UI">
+      <HintPath>..\SharedLibs\Telerik.WinControls.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.UI.Design">
+      <HintPath>..\SharedLibs\Telerik.WinControls.UI.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="TelerikCommon">
+      <HintPath>..\SharedLibs\TelerikCommon.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\CustomTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CuotasInfo.cs" />
+    <Compile Include="EditarComercios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditarComercios.Designer.cs">
+      <DependentUpon>EditarComercios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditarCupones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditarCupones.Designer.cs">
+      <DependentUpon>EditarCupones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditarFechasCierre.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditarFechasCierre.Designer.cs">
+      <DependentUpon>EditarFechasCierre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormIoCModule.cs" />
+    <Compile Include="ListarComercios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListarComercios.Designer.cs">
+      <DependentUpon>ListarComercios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListarCupones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListarCupones.Designer.cs">
+      <DependentUpon>ListarCupones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainTarjetas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainTarjetas.Designer.cs">
+      <DependentUpon>MainTarjetas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResumenTarjetas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ResumenTarjetas.Designer.cs">
+      <DependentUpon>ResumenTarjetas.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="EditarComercios.resx">
+      <DependentUpon>EditarComercios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditarCupones.resx">
+      <DependentUpon>EditarCupones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditarFechasCierre.resx">
+      <DependentUpon>EditarFechasCierre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListarComercios.resx">
+      <DependentUpon>ListarComercios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListarCupones.resx">
+      <DependentUpon>ListarCupones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainTarjetas.resx">
+      <DependentUpon>MainTarjetas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="ResumenTarjetas.resx">
+      <DependentUpon>ResumenTarjetas.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SySTarjetas.Core\SySTarjetas.Core.csproj">
+      <Project>{359129A7-D50A-4BED-B521-58B1B1F2F059}</Project>
+      <Name>SySTarjetas.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

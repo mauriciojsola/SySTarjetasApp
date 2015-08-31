@@ -1,0 +1,682 @@
+﻿<!---->
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+<edmx:Runtime>
+<edmx:StorageModels>
+<Schema Namespace="SySTarjetasModel.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="SySTarjetasModelStoreContainer">
+    <EntitySet Name="Banco" EntityType="SySTarjetasModel.Store.Banco" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Comercio" EntityType="SySTarjetasModel.Store.Comercio" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Tarjeta" EntityType="SySTarjetasModel.Store.Tarjeta" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="TarjetaFechaCierre" EntityType="SySTarjetasModel.Store.TarjetaFechaCierre" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="TarjetaOpcionCierre" EntityType="SySTarjetasModel.Store.TarjetaOpcionCierre" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="TipoTarjeta" EntityType="SySTarjetasModel.Store.TipoTarjeta" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Titular" EntityType="SySTarjetasModel.Store.Titular" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Transaccion" EntityType="SySTarjetasModel.Store.Transaccion" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="TransaccionCuota" EntityType="SySTarjetasModel.Store.TransaccionCuota" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <AssociationSet Name="FK_Tarjeta_Banco" Association="SySTarjetasModel.Store.FK_Tarjeta_Banco">
+      <End Role="Banco" EntitySet="Banco" />
+      <End Role="Tarjeta" EntitySet="Tarjeta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tarjeta_TipoTarjeta" Association="SySTarjetasModel.Store.FK_Tarjeta_TipoTarjeta">
+      <End Role="TipoTarjeta" EntitySet="TipoTarjeta" />
+      <End Role="Tarjeta" EntitySet="Tarjeta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tarjeta_Titular" Association="SySTarjetasModel.Store.FK_Tarjeta_Titular">
+      <End Role="Titular" EntitySet="Titular" />
+      <End Role="Tarjeta" EntitySet="Tarjeta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TarjetaFechaCierre_Tarjeta" Association="SySTarjetasModel.Store.FK_TarjetaFechaCierre_Tarjeta">
+      <End Role="Tarjeta" EntitySet="Tarjeta" />
+      <End Role="TarjetaFechaCierre" EntitySet="TarjetaFechaCierre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TarjetaOpcionCierre_Tarjeta" Association="SySTarjetasModel.Store.FK_TarjetaOpcionCierre_Tarjeta">
+      <End Role="Tarjeta" EntitySet="Tarjeta" />
+      <End Role="TarjetaOpcionCierre" EntitySet="TarjetaOpcionCierre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaccion_Comercio" Association="SySTarjetasModel.Store.FK_Transaccion_Comercio">
+      <End Role="Comercio" EntitySet="Comercio" />
+      <End Role="Transaccion" EntitySet="Transaccion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaccion_Tarjeta" Association="SySTarjetasModel.Store.FK_Transaccion_Tarjeta">
+      <End Role="Tarjeta" EntitySet="Tarjeta" />
+      <End Role="Transaccion" EntitySet="Transaccion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaccion_TarjetaFechaCierre" Association="SySTarjetasModel.Store.FK_Transaccion_TarjetaFechaCierre">
+      <End Role="TarjetaFechaCierre" EntitySet="TarjetaFechaCierre" />
+      <End Role="Transaccion" EntitySet="Transaccion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TransaccionCuota_Transaccion" Association="SySTarjetasModel.Store.FK_TransaccionCuota_Transaccion">
+      <End Role="Transaccion" EntitySet="Transaccion" />
+      <End Role="TransaccionCuota" EntitySet="TransaccionCuota" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Banco">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="RazonSocial" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="NumeroSucursal" Type="int" />
+    <Property Name="CUIT" Type="nvarchar" MaxLength="11" />
+    <Property Name="Direccion" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Comercio">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="RazonSocial" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="CUIT" Type="nchar" MaxLength="11" />
+    <Property Name="Direccion" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Tarjeta">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="NumeroTarjeta" Type="nvarchar" Nullable="false" MaxLength="16" />
+    <Property Name="NumeroCuenta" Type="nvarchar" MaxLength="25" />
+    <Property Name="TitularId" Type="int" Nullable="false" />
+    <Property Name="BancoId" Type="int" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+    <Property Name="TipoTarjetaId" Type="int" Nullable="false" />
+    <Property Name="FechaVencimiento" Type="datetime" Nullable="false" />
+    <Property Name="LimiteCompra" Type="money" />
+    <Property Name="LimiteFinanciacion" Type="money" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="TarjetaFechaCierre">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="TarjetaId" Type="int" Nullable="false" />
+    <Property Name="FechaCierre" Type="datetime" Nullable="false" />
+    <Property Name="Mes" Type="int" Nullable="false" />
+    <Property Name="Anio" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TarjetaOpcionCierre">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="DiaDeSemana" Type="nchar" MaxLength="20" />
+    <Property Name="Posicion" Type="nvarchar" MaxLength="15" />
+    <Property Name="TarjetaId" Type="int" />
+  </EntityType>
+  <EntityType Name="TipoTarjeta">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Titular">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="DNI" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="Apellido" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Nombre" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Direccion" Type="nvarchar" MaxLength="50" />
+    <Property Name="Telefono" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Transaccion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="TarjetaId" Type="int" Nullable="false" />
+    <Property Name="ComercioId" Type="int" Nullable="false" />
+    <Property Name="FechaCompra" Type="datetime" Nullable="false" />
+    <Property Name="NumeroCupon" Type="int" Nullable="false" />
+    <Property Name="CantidadCuotas" Type="int" Nullable="false" />
+    <Property Name="Observaciones" Type="nvarchar" MaxLength="250" />
+    <Property Name="Importe" Type="float" Nullable="false" />
+    <Property Name="FechaCierreId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TransaccionCuota">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="TransaccionId" Type="int" Nullable="false" />
+    <Property Name="NumeroCuota" Type="int" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="Importe" Type="float" Nullable="false" />
+    <Property Name="Verificado" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Tarjeta_Banco">
+    <End Role="Banco" Type="SySTarjetasModel.Store.Banco" Multiplicity="1" />
+    <End Role="Tarjeta" Type="SySTarjetasModel.Store.Tarjeta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Banco">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tarjeta">
+        <PropertyRef Name="BancoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tarjeta_TipoTarjeta">
+    <End Role="TipoTarjeta" Type="SySTarjetasModel.Store.TipoTarjeta" Multiplicity="1" />
+    <End Role="Tarjeta" Type="SySTarjetasModel.Store.Tarjeta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoTarjeta">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tarjeta">
+        <PropertyRef Name="TipoTarjetaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tarjeta_Titular">
+    <End Role="Titular" Type="SySTarjetasModel.Store.Titular" Multiplicity="1" />
+    <End Role="Tarjeta" Type="SySTarjetasModel.Store.Tarjeta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Titular">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tarjeta">
+        <PropertyRef Name="TitularId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TarjetaFechaCierre_Tarjeta">
+    <End Role="Tarjeta" Type="SySTarjetasModel.Store.Tarjeta" Multiplicity="1" />
+    <End Role="TarjetaFechaCierre" Type="SySTarjetasModel.Store.TarjetaFechaCierre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tarjeta">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TarjetaFechaCierre">
+        <PropertyRef Name="TarjetaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TarjetaOpcionCierre_Tarjeta">
+    <End Role="Tarjeta" Type="SySTarjetasModel.Store.Tarjeta" Multiplicity="0..1" />
+    <End Role="TarjetaOpcionCierre" Type="SySTarjetasModel.Store.TarjetaOpcionCierre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tarjeta">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TarjetaOpcionCierre">
+        <PropertyRef Name="TarjetaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaccion_Comercio">
+    <End Role="Comercio" Type="SySTarjetasModel.Store.Comercio" Multiplicity="1" />
+    <End Role="Transaccion" Type="SySTarjetasModel.Store.Transaccion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Comercio">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Transaccion">
+        <PropertyRef Name="ComercioId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaccion_Tarjeta">
+    <End Role="Tarjeta" Type="SySTarjetasModel.Store.Tarjeta" Multiplicity="1" />
+    <End Role="Transaccion" Type="SySTarjetasModel.Store.Transaccion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tarjeta">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Transaccion">
+        <PropertyRef Name="TarjetaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaccion_TarjetaFechaCierre">
+    <End Role="TarjetaFechaCierre" Type="SySTarjetasModel.Store.TarjetaFechaCierre" Multiplicity="1" />
+    <End Role="Transaccion" Type="SySTarjetasModel.Store.Transaccion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TarjetaFechaCierre">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Transaccion">
+        <PropertyRef Name="FechaCierreId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TransaccionCuota_Transaccion">
+    <End Role="Transaccion" Type="SySTarjetasModel.Store.Transaccion" Multiplicity="1" />
+    <End Role="TransaccionCuota" Type="SySTarjetasModel.Store.TransaccionCuota" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaccion">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TransaccionCuota">
+        <PropertyRef Name="TransaccionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
+</edmx:StorageModels>
+<edmx:ConceptualModels>
+<Schema Namespace="SySTarjetasModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="SySTarjetasEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+    <EntitySet Name="Banco" EntityType="SySTarjetasModel.Banco" />
+    <EntitySet Name="Comercio" EntityType="SySTarjetasModel.Comercio" />
+    <EntitySet Name="Tarjeta" EntityType="SySTarjetasModel.Tarjeta" />
+    <EntitySet Name="TarjetaFechaCierre" EntityType="SySTarjetasModel.TarjetaFechaCierre" />
+    <EntitySet Name="TarjetaOpcionCierre" EntityType="SySTarjetasModel.TarjetaOpcionCierre" />
+    <EntitySet Name="TipoTarjeta" EntityType="SySTarjetasModel.TipoTarjeta" />
+    <EntitySet Name="Titular" EntityType="SySTarjetasModel.Titular" />
+    <EntitySet Name="Transaccion" EntityType="SySTarjetasModel.Transaccion" />
+    <EntitySet Name="TransaccionCuota" EntityType="SySTarjetasModel.TransaccionCuota" />
+    <AssociationSet Name="FK_Tarjeta_Banco" Association="SySTarjetasModel.FK_Tarjeta_Banco">
+      <End Role="Banco" EntitySet="Banco" />
+      <End Role="Tarjeta" EntitySet="Tarjeta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaccion_Comercio" Association="SySTarjetasModel.FK_Transaccion_Comercio">
+      <End Role="Comercio" EntitySet="Comercio" />
+      <End Role="Transaccion" EntitySet="Transaccion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tarjeta_TipoTarjeta" Association="SySTarjetasModel.FK_Tarjeta_TipoTarjeta">
+      <End Role="TipoTarjeta" EntitySet="TipoTarjeta" />
+      <End Role="Tarjeta" EntitySet="Tarjeta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tarjeta_Titular" Association="SySTarjetasModel.FK_Tarjeta_Titular">
+      <End Role="Titular" EntitySet="Titular" />
+      <End Role="Tarjeta" EntitySet="Tarjeta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TarjetaFechaCierre_Tarjeta" Association="SySTarjetasModel.FK_TarjetaFechaCierre_Tarjeta">
+      <End Role="Tarjeta" EntitySet="Tarjeta" />
+      <End Role="TarjetaFechaCierre" EntitySet="TarjetaFechaCierre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TarjetaOpcionCierre_Tarjeta" Association="SySTarjetasModel.FK_TarjetaOpcionCierre_Tarjeta">
+      <End Role="Tarjeta" EntitySet="Tarjeta" />
+      <End Role="TarjetaOpcionCierre" EntitySet="TarjetaOpcionCierre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaccion_Tarjeta" Association="SySTarjetasModel.FK_Transaccion_Tarjeta">
+      <End Role="Tarjeta" EntitySet="Tarjeta" />
+      <End Role="Transaccion" EntitySet="Transaccion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaccion_TarjetaFechaCierre" Association="SySTarjetasModel.FK_Transaccion_TarjetaFechaCierre">
+      <End Role="TarjetaFechaCierre" EntitySet="TarjetaFechaCierre" />
+      <End Role="Transaccion" EntitySet="Transaccion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TransaccionCuota_Transaccion" Association="SySTarjetasModel.FK_TransaccionCuota_Transaccion">
+      <End Role="Transaccion" EntitySet="Transaccion" />
+      <End Role="TransaccionCuota" EntitySet="TransaccionCuota" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Banco">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="RazonSocial" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="NumeroSucursal" Type="Int32" />
+    <Property Name="CUIT" Type="String" MaxLength="11" Unicode="true" FixedLength="false" />
+    <Property Name="Direccion" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Tarjeta" Relationship="SySTarjetasModel.FK_Tarjeta_Banco" FromRole="Banco" ToRole="Tarjeta" />
+  </EntityType>
+  <EntityType Name="Comercio">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="RazonSocial" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="CUIT" Type="String" MaxLength="11" Unicode="true" FixedLength="true" />
+    <Property Name="Direccion" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Transaccion" Relationship="SySTarjetasModel.FK_Transaccion_Comercio" FromRole="Comercio" ToRole="Transaccion" />
+  </EntityType>
+  <EntityType Name="Tarjeta">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="NumeroTarjeta" Type="String" Nullable="false" MaxLength="16" Unicode="true" FixedLength="false" />
+    <Property Name="NumeroCuenta" Type="String" MaxLength="25" Unicode="true" FixedLength="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="FechaVencimiento" Type="DateTime" Nullable="false" />
+    <Property Name="LimiteCompra" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="LimiteFinanciacion" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Active" Type="Boolean" />
+    <NavigationProperty Name="Banco" Relationship="SySTarjetasModel.FK_Tarjeta_Banco" FromRole="Tarjeta" ToRole="Banco" />
+    <NavigationProperty Name="TipoTarjeta" Relationship="SySTarjetasModel.FK_Tarjeta_TipoTarjeta" FromRole="Tarjeta" ToRole="TipoTarjeta" />
+    <NavigationProperty Name="Titular" Relationship="SySTarjetasModel.FK_Tarjeta_Titular" FromRole="Tarjeta" ToRole="Titular" />
+    <NavigationProperty Name="TarjetaFechaCierre" Relationship="SySTarjetasModel.FK_TarjetaFechaCierre_Tarjeta" FromRole="Tarjeta" ToRole="TarjetaFechaCierre" />
+    <NavigationProperty Name="TarjetaOpcionCierre" Relationship="SySTarjetasModel.FK_TarjetaOpcionCierre_Tarjeta" FromRole="Tarjeta" ToRole="TarjetaOpcionCierre" />
+    <NavigationProperty Name="Transaccion" Relationship="SySTarjetasModel.FK_Transaccion_Tarjeta" FromRole="Tarjeta" ToRole="Transaccion" />
+  </EntityType>
+  <EntityType Name="TarjetaFechaCierre">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="FechaCierre" Type="DateTime" Nullable="false" />
+    <Property Name="Mes" Type="Int32" Nullable="false" />
+    <Property Name="Anio" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Tarjeta" Relationship="SySTarjetasModel.FK_TarjetaFechaCierre_Tarjeta" FromRole="TarjetaFechaCierre" ToRole="Tarjeta" />
+    <NavigationProperty Name="Transaccion" Relationship="SySTarjetasModel.FK_Transaccion_TarjetaFechaCierre" FromRole="TarjetaFechaCierre" ToRole="Transaccion" />
+  </EntityType>
+  <EntityType Name="TarjetaOpcionCierre">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="DiaDeSemana" Type="String" MaxLength="20" Unicode="true" FixedLength="true" />
+    <Property Name="Posicion" Type="String" MaxLength="15" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Tarjeta" Relationship="SySTarjetasModel.FK_TarjetaOpcionCierre_Tarjeta" FromRole="TarjetaOpcionCierre" ToRole="Tarjeta" />
+  </EntityType>
+  <EntityType Name="TipoTarjeta">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Tarjeta" Relationship="SySTarjetasModel.FK_Tarjeta_TipoTarjeta" FromRole="TipoTarjeta" ToRole="Tarjeta" />
+  </EntityType>
+  <EntityType Name="Titular">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="DNI" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+    <Property Name="Apellido" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Direccion" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Telefono" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Tarjeta" Relationship="SySTarjetasModel.FK_Tarjeta_Titular" FromRole="Titular" ToRole="Tarjeta" />
+  </EntityType>
+  <EntityType Name="Transaccion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="FechaCompra" Type="DateTime" Nullable="false" />
+    <Property Name="NumeroCupon" Type="Int32" Nullable="false" />
+    <Property Name="CantidadCuotas" Type="Int32" Nullable="false" />
+    <Property Name="Observaciones" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+    <Property Name="Importe" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Comercio" Relationship="SySTarjetasModel.FK_Transaccion_Comercio" FromRole="Transaccion" ToRole="Comercio" />
+    <NavigationProperty Name="Tarjeta" Relationship="SySTarjetasModel.FK_Transaccion_Tarjeta" FromRole="Transaccion" ToRole="Tarjeta" />
+    <NavigationProperty Name="TarjetaFechaCierre" Relationship="SySTarjetasModel.FK_Transaccion_TarjetaFechaCierre" FromRole="Transaccion" ToRole="TarjetaFechaCierre" />
+    <NavigationProperty Name="TransaccionCuota" Relationship="SySTarjetasModel.FK_TransaccionCuota_Transaccion" FromRole="Transaccion" ToRole="TransaccionCuota" />
+  </EntityType>
+  <EntityType Name="TransaccionCuota">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="NumeroCuota" Type="Int32" Nullable="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" />
+    <Property Name="Importe" Type="Double" Nullable="false" />
+    <Property Name="Verificado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Transaccion" Relationship="SySTarjetasModel.FK_TransaccionCuota_Transaccion" FromRole="TransaccionCuota" ToRole="Transaccion" />
+  </EntityType>
+  <Association Name="FK_Tarjeta_Banco">
+    <End Role="Banco" Type="SySTarjetasModel.Banco" Multiplicity="1" />
+    <End Role="Tarjeta" Type="SySTarjetasModel.Tarjeta" Multiplicity="*" />
+  </Association>
+  <Association Name="FK_Transaccion_Comercio">
+    <End Role="Comercio" Type="SySTarjetasModel.Comercio" Multiplicity="1" />
+    <End Role="Transaccion" Type="SySTarjetasModel.Transaccion" Multiplicity="*" />
+  </Association>
+  <Association Name="FK_Tarjeta_TipoTarjeta">
+    <End Role="TipoTarjeta" Type="SySTarjetasModel.TipoTarjeta" Multiplicity="1" />
+    <End Role="Tarjeta" Type="SySTarjetasModel.Tarjeta" Multiplicity="*" />
+  </Association>
+  <Association Name="FK_Tarjeta_Titular">
+    <End Role="Titular" Type="SySTarjetasModel.Titular" Multiplicity="1" />
+    <End Role="Tarjeta" Type="SySTarjetasModel.Tarjeta" Multiplicity="*" />
+  </Association>
+  <Association Name="FK_TarjetaFechaCierre_Tarjeta">
+    <End Role="Tarjeta" Type="SySTarjetasModel.Tarjeta" Multiplicity="1" />
+    <End Role="TarjetaFechaCierre" Type="SySTarjetasModel.TarjetaFechaCierre" Multiplicity="*" />
+  </Association>
+  <Association Name="FK_TarjetaOpcionCierre_Tarjeta">
+    <End Role="Tarjeta" Type="SySTarjetasModel.Tarjeta" Multiplicity="0..1" />
+    <End Role="TarjetaOpcionCierre" Type="SySTarjetasModel.TarjetaOpcionCierre" Multiplicity="*" />
+  </Association>
+  <Association Name="FK_Transaccion_Tarjeta">
+    <End Role="Tarjeta" Type="SySTarjetasModel.Tarjeta" Multiplicity="1" />
+    <End Role="Transaccion" Type="SySTarjetasModel.Transaccion" Multiplicity="*" />
+  </Association>
+  <Association Name="FK_Transaccion_TarjetaFechaCierre">
+    <End Role="TarjetaFechaCierre" Type="SySTarjetasModel.TarjetaFechaCierre" Multiplicity="1" />
+    <End Role="Transaccion" Type="SySTarjetasModel.Transaccion" Multiplicity="*" />
+  </Association>
+  <Association Name="FK_TransaccionCuota_Transaccion">
+    <End Role="Transaccion" Type="SySTarjetasModel.Transaccion" Multiplicity="1" />
+    <End Role="TransaccionCuota" Type="SySTarjetasModel.TransaccionCuota" Multiplicity="*" />
+  </Association>
+</Schema>
+</edmx:ConceptualModels>
+<edmx:Mappings>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SySTarjetasModelStoreContainer" CdmEntityContainer="SySTarjetasEntities">
+    <EntitySetMapping Name="Banco">
+      <EntityTypeMapping TypeName="SySTarjetasModel.Banco">
+        <MappingFragment StoreEntitySet="Banco">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
+          <ScalarProperty Name="NumeroSucursal" ColumnName="NumeroSucursal" />
+          <ScalarProperty Name="CUIT" ColumnName="CUIT" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comercio">
+      <EntityTypeMapping TypeName="SySTarjetasModel.Comercio">
+        <MappingFragment StoreEntitySet="Comercio">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
+          <ScalarProperty Name="CUIT" ColumnName="CUIT" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tarjeta">
+      <EntityTypeMapping TypeName="SySTarjetasModel.Tarjeta">
+        <MappingFragment StoreEntitySet="Tarjeta">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NumeroTarjeta" ColumnName="NumeroTarjeta" />
+          <ScalarProperty Name="NumeroCuenta" ColumnName="NumeroCuenta" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
+          <ScalarProperty Name="LimiteCompra" ColumnName="LimiteCompra" />
+          <ScalarProperty Name="LimiteFinanciacion" ColumnName="LimiteFinanciacion" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TarjetaFechaCierre">
+      <EntityTypeMapping TypeName="SySTarjetasModel.TarjetaFechaCierre">
+        <MappingFragment StoreEntitySet="TarjetaFechaCierre">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FechaCierre" ColumnName="FechaCierre" />
+          <ScalarProperty Name="Mes" ColumnName="Mes" />
+          <ScalarProperty Name="Anio" ColumnName="Anio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TarjetaOpcionCierre">
+      <EntityTypeMapping TypeName="SySTarjetasModel.TarjetaOpcionCierre">
+        <MappingFragment StoreEntitySet="TarjetaOpcionCierre">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DiaDeSemana" ColumnName="DiaDeSemana" />
+          <ScalarProperty Name="Posicion" ColumnName="Posicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoTarjeta">
+      <EntityTypeMapping TypeName="SySTarjetasModel.TipoTarjeta">
+        <MappingFragment StoreEntitySet="TipoTarjeta">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Titular">
+      <EntityTypeMapping TypeName="SySTarjetasModel.Titular">
+        <MappingFragment StoreEntitySet="Titular">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DNI" ColumnName="DNI" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transaccion">
+      <EntityTypeMapping TypeName="SySTarjetasModel.Transaccion">
+        <MappingFragment StoreEntitySet="Transaccion">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FechaCompra" ColumnName="FechaCompra" />
+          <ScalarProperty Name="NumeroCupon" ColumnName="NumeroCupon" />
+          <ScalarProperty Name="CantidadCuotas" ColumnName="CantidadCuotas" />
+          <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+          <ScalarProperty Name="Importe" ColumnName="Importe" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TransaccionCuota">
+      <EntityTypeMapping TypeName="SySTarjetasModel.TransaccionCuota">
+        <MappingFragment StoreEntitySet="TransaccionCuota">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NumeroCuota" ColumnName="NumeroCuota" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Importe" ColumnName="Importe" />
+          <ScalarProperty Name="Verificado" ColumnName="Verificado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="FK_Tarjeta_Banco" TypeName="SySTarjetasModel.FK_Tarjeta_Banco" StoreEntitySet="Tarjeta">
+      <EndProperty Name="Banco">
+        <ScalarProperty Name="Id" ColumnName="BancoId" />
+      </EndProperty>
+      <EndProperty Name="Tarjeta">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Transaccion_Comercio" TypeName="SySTarjetasModel.FK_Transaccion_Comercio" StoreEntitySet="Transaccion">
+      <EndProperty Name="Comercio">
+        <ScalarProperty Name="Id" ColumnName="ComercioId" />
+      </EndProperty>
+      <EndProperty Name="Transaccion">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Tarjeta_TipoTarjeta" TypeName="SySTarjetasModel.FK_Tarjeta_TipoTarjeta" StoreEntitySet="Tarjeta">
+      <EndProperty Name="TipoTarjeta">
+        <ScalarProperty Name="Id" ColumnName="TipoTarjetaId" />
+      </EndProperty>
+      <EndProperty Name="Tarjeta">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Tarjeta_Titular" TypeName="SySTarjetasModel.FK_Tarjeta_Titular" StoreEntitySet="Tarjeta">
+      <EndProperty Name="Titular">
+        <ScalarProperty Name="Id" ColumnName="TitularId" />
+      </EndProperty>
+      <EndProperty Name="Tarjeta">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_TarjetaFechaCierre_Tarjeta" TypeName="SySTarjetasModel.FK_TarjetaFechaCierre_Tarjeta" StoreEntitySet="TarjetaFechaCierre">
+      <EndProperty Name="Tarjeta">
+        <ScalarProperty Name="Id" ColumnName="TarjetaId" />
+      </EndProperty>
+      <EndProperty Name="TarjetaFechaCierre">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_TarjetaOpcionCierre_Tarjeta" TypeName="SySTarjetasModel.FK_TarjetaOpcionCierre_Tarjeta" StoreEntitySet="TarjetaOpcionCierre">
+      <EndProperty Name="Tarjeta">
+        <ScalarProperty Name="Id" ColumnName="TarjetaId" />
+      </EndProperty>
+      <EndProperty Name="TarjetaOpcionCierre">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="TarjetaId" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Transaccion_Tarjeta" TypeName="SySTarjetasModel.FK_Transaccion_Tarjeta" StoreEntitySet="Transaccion">
+      <EndProperty Name="Tarjeta">
+        <ScalarProperty Name="Id" ColumnName="TarjetaId" />
+      </EndProperty>
+      <EndProperty Name="Transaccion">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Transaccion_TarjetaFechaCierre" TypeName="SySTarjetasModel.FK_Transaccion_TarjetaFechaCierre" StoreEntitySet="Transaccion">
+      <EndProperty Name="TarjetaFechaCierre">
+        <ScalarProperty Name="Id" ColumnName="FechaCierreId" />
+      </EndProperty>
+      <EndProperty Name="Transaccion">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_TransaccionCuota_Transaccion" TypeName="SySTarjetasModel.FK_TransaccionCuota_Transaccion" StoreEntitySet="TransaccionCuota">
+      <EndProperty Name="Transaccion">
+        <ScalarProperty Name="Id" ColumnName="TransaccionId" />
+      </EndProperty>
+      <EndProperty Name="TransaccionCuota">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
+</edmx:Mappings>
+</edmx:Runtime>
+<edmx:Designer>
+<edmx:Connection><edmx:DesignerInfoPropertySet><edmx:DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" /></edmx:DesignerInfoPropertySet></edmx:Connection>
+<edmx:Options><edmx:DesignerInfoPropertySet><edmx:DesignerProperty Name="ValidateOnBuild" Value="True" /><edmx:DesignerProperty Name="EnablePluralization" Value="False" /><edmx:DesignerProperty Name="IncludeForeignKeysInModel" Value="False" /><edmx:DesignerProperty Name="CodeGenerationStrategy" Value="Default" /></edmx:DesignerInfoPropertySet></edmx:Options>
+<edmx:Diagrams>
+      <edmx:Diagram Name="SySTarjetas" ZoomLevel="86">
+        <edmx:EntityTypeShape EntityType="SySTarjetasModel.Banco" Width="1.5" PointX="0.75" PointY="4" Height="2.1725878906250005" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="SySTarjetasModel.Comercio" Width="1.5" PointX="7.25" PointY="6.875" Height="1.9802864583333335" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="SySTarjetasModel.Tarjeta" Width="2" PointX="2.75" PointY="3.25" Height="3.7109993489583339" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="SySTarjetasModel.TarjetaFechaCierre" Width="1.5" PointX="5.25" PointY="2.75" Height="2.1725878906249996" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="SySTarjetasModel.TarjetaOpcionCierre" Width="1.5" PointX="5.25" PointY="5.625" Height="1.7879850260416674" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="SySTarjetasModel.TipoTarjeta" Width="1.5" PointX="0.75" PointY="2.125" Height="1.5956835937499996" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="SySTarjetasModel.Titular" Width="1.5" PointX="0.75" PointY="6.375" Height="2.3648893229166674" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="SySTarjetasModel.Transaccion" Width="1.5" PointX="7.5" PointY="3.375" Height="2.941793619791667" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="SySTarjetasModel.TransaccionCuota" Width="1.5" PointX="9.375" PointY="3.375" Height="2.1725878906249996" IsExpanded="true" />
+        <edmx:AssociationConnector Association="SySTarjetasModel.FK_Tarjeta_Banco" ManuallyRouted="false">
+          <edmx:ConnectorPoint PointX="2.25" PointY="5.0862939453125" />
+          <edmx:ConnectorPoint PointX="2.75" PointY="5.0862939453125" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SySTarjetasModel.FK_Transaccion_Comercio" ManuallyRouted="false">
+          <edmx:ConnectorPoint PointX="8.125" PointY="6.875" />
+          <edmx:ConnectorPoint PointX="8.125" PointY="6.3167936197916674" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SySTarjetasModel.FK_Tarjeta_TipoTarjeta" ManuallyRouted="false">
+          <edmx:ConnectorPoint PointX="2.25" PointY="3.485341796875" />
+          <edmx:ConnectorPoint PointX="2.75" PointY="3.485341796875" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SySTarjetasModel.FK_Tarjeta_Titular" ManuallyRouted="false">
+          <edmx:ConnectorPoint PointX="2.25" PointY="6.6679996744791667" />
+          <edmx:ConnectorPoint PointX="2.75" PointY="6.6679996744791667" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SySTarjetasModel.FK_TarjetaFechaCierre_Tarjeta" ManuallyRouted="false">
+          <edmx:ConnectorPoint PointX="4.75" PointY="4.0862939453125" />
+          <edmx:ConnectorPoint PointX="5.25" PointY="4.0862939453125" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SySTarjetasModel.FK_TarjetaOpcionCierre_Tarjeta" ManuallyRouted="false">
+          <edmx:ConnectorPoint PointX="4.75" PointY="6.2929996744791667" />
+          <edmx:ConnectorPoint PointX="5.25" PointY="6.2929996744791667" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SySTarjetasModel.FK_Transaccion_Tarjeta" ManuallyRouted="false">
+          <edmx:ConnectorPoint PointX="4.75" PointY="5.2737939453125" />
+          <edmx:ConnectorPoint PointX="7.5" PointY="5.2737939453125" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SySTarjetasModel.FK_Transaccion_TarjetaFechaCierre" ManuallyRouted="false">
+          <edmx:ConnectorPoint PointX="6.75" PointY="4.1487939453125" />
+          <edmx:ConnectorPoint PointX="7.5" PointY="4.1487939453125" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SySTarjetasModel.FK_TransaccionCuota_Transaccion" ManuallyRouted="false">
+          <edmx:ConnectorPoint PointX="9" PointY="4.4612939453125" />
+          <edmx:ConnectorPoint PointX="9.375" PointY="4.4612939453125" />
+        </edmx:AssociationConnector>
+      </edmx:Diagram>
+    </edmx:Diagrams>
+</edmx:Designer></edmx:Edmx>

@@ -1,0 +1,57 @@
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
+<html ng-app="SysApp">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/bundles/styles/master")
+    @Scripts.Render("~/scripts/scripts-header")
+</head>
+<body>
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">SySTarjetas
+                </li>
+                <li><a href="#/cupones">Cupones</a></li>
+                <li>
+                    <a href="#">Comercios</a>
+                </li>
+                <li>
+                    <a href="#">Tarjetas</a>
+                </li>
+                <li>
+                    <a href="#">Resumen de Tarjetas</a>
+                </li>
+                @*<li>@Html.ActionLink("HOME", "Index", "Home", null, new { @class = "" })</li>*@
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    @Scripts.Render("~/scripts/scripts-footer")>
+
+
+</body>
+
+
+
+
+</html>
