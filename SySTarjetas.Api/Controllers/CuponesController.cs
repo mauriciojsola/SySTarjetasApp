@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using System.Web.Management;
 using SySTarjetas.Api.Models;
 using SySTarjetas.Core.Service;
 

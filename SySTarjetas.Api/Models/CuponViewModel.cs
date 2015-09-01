@@ -1,17 +1,17 @@
-﻿using System;
-
-namespace SySTarjetas.Api.Models
+﻿namespace SySTarjetas.Api.Models
 {
-    public class CuponViewModel
+    public class TitularViewModel
     {
         public int Id { get; set; }
-        public string RazonSocial { get; set; }
-        public string FechaCompra { get; set; }
-        public DateTime FechaCompraParaOrdenar { get; set; }
-        public int NumeroCupon { get; set; }
-        public double Importe { get; set; }
-        public string ImporteFormateado { get; set; }
-        public int Cuotas { get; set; }
-       
+        public string Apellido { get; set; }
+        public string Nombre { get; set; }
+
+        public string FullName
+        {
+            get
+            {
+                return string.Join(" ", Apellido, Nombre);
+            }
+        }
     }
 }

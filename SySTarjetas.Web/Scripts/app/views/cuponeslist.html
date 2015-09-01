@@ -1,4 +1,43 @@
-﻿<div class="table-responsive" ng-cloak>
-    <div ui-grid="gridOptions" ui-grid-pagination class="grid" style="height: 850px;"></div>
+﻿<div class="form-inline">
+    <div class="row">
+        <div class="col-md-2">
+            <label for="titular">Titular</label>
+            <select id="titular" ng-model="titular" ng-options="titular.FullName for titular in titulares track by titular.Id" ng-change="loadCards()" class="form-control">
+                <option value=''>Seleccione Titular</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="tarjeta">Tarjeta</label>
+            <select id="tarjeta" ng-model="tarjeta" ng-options="tarjeta.FullDescription for tarjeta in tarjetas track by tarjeta.Id" ng-disabled="!tarjetas" ng-change="loadCupones()" class="form-control">
+                <option value=''>Seleccione Tarjeta</option>
+            </select>
+        </div>
+        <div class="col-md-1">
+            <label for="year">Año</label>
+            <!--<select id="year" ng-model="year" ng-options="year for year in years" ng-disabled="!years" ng-change="loadCupones()" class="form-control">
+                <option value=''>Seleccione Año</option>
+            </select>-->
+
+            <div year-drop-down offset="3"></div>
+
+        </div>
+        <div class="col-md-1">
+            <label for="tarjeta">Mes</label>
+            <!--<select id="Select2" ng-model="tarjeta" ng-options="tarjeta.FullDescription for tarjeta in tarjetas track by tarjeta.Id" ng-disabled="!tarjetas" ng-change="loadCupones()" class="form-control">
+                <option value=''>Seleccione Mes</option>
+            </select>-->
+            <div month-drop-down></div>
+        </div>
+        <div class="col-md-1">
+            <label for="tarjeta">Todos</label>
+            <input type="checkbox" id="showAll" class="form-control"/>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="table-responsive" ng-cloak>
+    <div ui-grid="gridOptions" ui-grid-pagination class="grid" style="height: 850px;" ng-disabled="!gridOptions.data"></div>
 </div>
 

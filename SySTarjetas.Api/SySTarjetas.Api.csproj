@@ -88,10 +88,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ApiControllerBase.cs" />
+    <Compile Include="Controllers\TarjetasController.cs" />
+    <Compile Include="Controllers\TitularesController.cs" />
     <Compile Include="Controllers\CuponesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\TarjetaViewModel.cs" />
+    <Compile Include="Models\TitularViewModel.cs" />
     <Compile Include="Models\CuponViewModel.cs" />
     <Compile Include="Models\PagedResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
