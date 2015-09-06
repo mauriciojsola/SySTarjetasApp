@@ -2,7 +2,6 @@
 {
     public class TarjetaViewModel
     {
-
         public int Id { get; set; }
         public string Banco { get; set; }
         public string TipoTarjeta { get; set; }

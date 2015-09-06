@@ -142,6 +142,7 @@
     <Content Include="Scripts\app\views\cuponeslist.html" />
     <Content Include="Scripts\app\views\index.html" />
     <Content Include="Scripts\app\views\pager.html" />
+    <Content Include="Scripts\jquery.FlowupLabels.js" />
     <Content Include="Scripts\loading-bar.js" />
     <Content Include="Scripts\ng-table.js" />
     <Content Include="Scripts\toaster.js" />
@@ -149,6 +150,7 @@
     <Content Include="Scripts\ui-grid.min.js" />
     <Content Include="Styles\bootstrap.css" />
     <Content Include="Styles\bootstrap.min.css" />
+    <Content Include="Styles\jquery.FlowupLabels.css" />
     <Content Include="Styles\loading-bar.css" />
     <Content Include="Styles\simple-sidebar.css" />
     <Content Include="Styles\Site.css" />
@@ -981,6 +983,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Views\Home\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

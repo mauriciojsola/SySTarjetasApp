@@ -12,7 +12,7 @@
                 <option value=''>Seleccione Tarjeta</option>
             </select>
         </div>
-        <div class="col-md-1">
+        <div class="col-md-2 col-xs-4">
             <label for="year">Año</label>
             <!--<select id="year" ng-model="year" ng-options="year for year in years" ng-disabled="!years" ng-change="loadCupones()" class="form-control">
                 <option value=''>Seleccione Año</option>
@@ -21,7 +21,7 @@
             <div year-drop-down offset="3"></div>
 
         </div>
-        <div class="col-md-1">
+        <div class="col-md-2 col-xs-4">
             <label for="tarjeta">Mes</label>
             <!--<select id="Select2" ng-model="tarjeta" ng-options="tarjeta.FullDescription for tarjeta in tarjetas track by tarjeta.Id" ng-disabled="!tarjetas" ng-change="loadCupones()" class="form-control">
                 <option value=''>Seleccione Mes</option>
@@ -30,7 +30,7 @@
         </div>
         <div class="col-md-1">
             <label for="tarjeta">Todos</label>
-            <input type="checkbox" id="showAll" class="form-control"/>
+            <input type="checkbox" id="chkShowAll" class="form-control" ng-model="listarTodos" ng-change="loadCupones()"/>
         </div>
     </div>
 

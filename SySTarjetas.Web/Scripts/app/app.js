@@ -85,15 +85,22 @@ app.directive('monthDropDown', function () {
             scope.months = [];
             scope.months.push({ number: 1, name: "Enero" });
             scope.months.push({ number: 2, name: "Febrero" });
+            scope.months.push({ number: 3, name: "Marzo" });
+            scope.months.push({ number: 4, name: "Abril" });
+            scope.months.push({ number: 5, name: "Mayo" });
+            scope.months.push({ number: 6, name: "Junio" });
+            scope.months.push({ number: 7, name: "Julio" });
             scope.months.push({ number: 8, name: "Agosto" });
             scope.months.push({ number: 9, name: "Setiembre" });
+            scope.months.push({ number: 10, name: "Octubre" });
+            scope.months.push({ number: 11, name: "Noviembre" });
+            scope.months.push({ number: 12, name: "Diciembre" });
 
-            scope.month = {number : currentMonth};
+            scope.month = {number : currentMonth + 1};
         },
         template: '<select ng-model="month" ng-options="month.name for month in months track by month.number" ng-change="loadCupones()" class="form-control"><option value="">Seleccione Mes</option></select>'
     }
 });
-
 
 app.controller('ListCuponesController', [
     '$q', '$scope', '$http', 'uiGridConstants', 'ListCuponesService', function ($q, $scope, $http, uiGridConstants, listCuponesService) {
@@ -107,7 +114,7 @@ app.controller('ListCuponesController', [
                 tarjetaId: $scope.tarjeta ? $scope.tarjeta.Id : null,
                 anio: $scope.year ? $scope.year : null,
                 mes: $scope.month ? $scope.month.number : null,
-                listarTodos: false
+                listarTodos: $scope.listarTodos ? $scope.listarTodos : false
             }
         }
         
