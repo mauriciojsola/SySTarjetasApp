@@ -6,7 +6,7 @@ app.config(['$routeProvider', function ($routeProvider) {
 
     $routeProvider.when("/cupones", {
         controller: "ListCuponesController",
-        templateUrl: "Scripts/app/views/cuponeslist.html"
+        templateUrl: "Scripts/app/views/cupones/list.html"
     })
     .when("/index", {
         templateUrl: "Scripts/app/views/index.html"
@@ -108,7 +108,7 @@ app.controller('ListCuponesController', [
         $scope.pageSize = 25;
         $scope.pageNumber = 1;
         $scope.sort = null;
-
+       
         var getQueryParams = function () {
             return {
                 tarjetaId: $scope.tarjeta ? $scope.tarjeta.Id : null,
@@ -162,19 +162,21 @@ app.controller('ListCuponesController', [
             }
             getCupones();
         };
-
-       
-
+        
         $scope.gridOptions = {
             paginationPageSizes: [25, 50, 100],
             paginationPageSize: 25,
             useExternalPagination: true,
             useExternalSorting: true,
-            enableFiltering: false,
+            enableFiltering: true,
+            resizable: true,
             columnDefs: [
-                { name: 'Id' },
-                { name: 'RazonSocial', enableSorting: false },
-                { name: 'FechaCompra', enableSorting: false }
+                { field: 'FechaCompra', displayName: 'Fecha Compra', enableSorting: false },
+                { field: 'NumeroCupon', displayName: 'Numero Cupón', enableSorting: false },
+                { field: 'RazonSocial', displayName: 'Razón Social', enableSorting: false },
+                { field: 'Cuotas', displayName: 'Cuotas', enableSorting: false },
+                { field: 'ImporteFormateado', displayName: 'Importe', enableSorting: false },
+                { name: 'Actions', field: 'Id', cellTemplate: '<div class="ui-grid-cell-contents"><button class="btn primary" ng-click="grid.appScope.editCupon(row.entity.Id)">EditC&nbsp;</button></div>' }
             ],
             onRegisterApi: function (gridApi) {
                 $scope.gridApi = gridApi;
@@ -243,5 +245,8 @@ app.controller('ListCuponesController', [
 
         };
 
+        $scope.editCupon = function(cuponId) {
+            alert(cuponId);
+        };
     }
 ]);

@@ -139,7 +139,7 @@
     <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\controllers.js" />
-    <Content Include="Scripts\app\views\cuponeslist.html" />
+    <Content Include="Scripts\app\views\cupones\list.html" />
     <Content Include="Scripts\app\views\index.html" />
     <Content Include="Scripts\app\views\pager.html" />
     <Content Include="Scripts\jquery.FlowupLabels.js" />

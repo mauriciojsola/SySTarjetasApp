@@ -11,7 +11,6 @@ namespace SySTarjetas.Api.Controllers
     {
         public ISySTarjetasService SySTarjetasService { get; set; }
 
-
         [HttpGet]
         [Route("list")]
         public PagedResponse<CuponViewModel> List(int tarjetaId, int anio, int mes, bool listarTodos, int pageSize, int pageNumber)
@@ -27,7 +26,7 @@ namespace SySTarjetas.Api.Controllers
 
                 totalCount = cupones.Count;
 
-                listadoCupones = cupones.Skip((pageNumber - 1) * pageSize).Take(pageSize).Select(
+                listadoCupones = cupones.OrderBy(x =>x.FechaCompra).Skip((pageNumber - 1) * pageSize).Take(pageSize).Select(
                     x =>
                         new CuponViewModel
                         {
