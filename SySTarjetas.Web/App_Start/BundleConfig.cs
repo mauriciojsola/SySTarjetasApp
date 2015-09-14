@@ -20,11 +20,10 @@ namespace SySTarjetas.Web
             bundles.Add(new ScriptBundle("~/scripts/scripts-header")
                .Include("~/scripts/angular.js")
                .Include("~/scripts/jquery-1.10.2.js")
-               //.Include("~/scripts/jquery.FlowupLabels.js")
                .Include("~/scripts/modernizr-2.6.2.js"));
 
             bundles.Add(new ScriptBundle("~/scripts/scripts-footer")
-               //.Include("~/scripts/bootstrap.js")
+               .Include("~/scripts/bootstrap.js")
                .Include("~/scripts/angular-resource.js")
                .Include("~/scripts/angular-sanitize.js")
                .Include("~/scripts/angular-route.js")
@@ -32,11 +31,10 @@ namespace SySTarjetas.Web
                .Include("~/scripts/angular-animate.js")
                .Include("~/scripts/toaster.js")
                .Include("~/scripts/ui-grid.js")
-               //.Include("~/scripts/ng-table.js")
                .Include("~/scripts/loading-bar.js")
                .Include("~/scripts/app/app.js")
-               .Include("~/scripts/angular-ui/ui-bootstrap.js")
-               //.Include("~/scripts/jquery.FlowupLabels.js")
+               .Include("~/scripts/angular-ui/ui-bootstrap-tpls.js")
+               .Include("~/scripts/angular-modal-service.js")
                );
         }
 
