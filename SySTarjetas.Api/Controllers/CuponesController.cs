@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using AutoMapper;
 using SySTarjetas.Api.Models;
+using SySTarjetas.Core.Repository;
 using SySTarjetas.Core.Service;
 
 namespace SySTarjetas.Api.Controllers
@@ -10,6 +12,7 @@ namespace SySTarjetas.Api.Controllers
     public class CuponesController : ApiControllerBase
     {
         public ISySTarjetasService SySTarjetasService { get; set; }
+        public ITransaccionRepository TransaccionRepository { get; set; }
 
         [HttpGet]
         [Route("list")]
@@ -42,7 +45,19 @@ namespace SySTarjetas.Api.Controllers
             }
 
             return new PagedResponse<CuponViewModel>(listadoCupones.OrderBy(x => x.FechaCompraParaOrdenar).ToList(), pageNumber, pageSize, totalCount);
+        }
 
+        [HttpGet]
+        [Route("{cuponId}/details")]
+        public CuponViewModel GetCupon(int cuponId)
+        {
+            var cuponViewModel = new CuponViewModel();
+            var cupon = TransaccionRepository.GetById(cuponId);
+            if (cupon != null)
+            {
+                cuponViewModel = Mapper.Map<CuponViewModel>(cupon);
+            }
+            return cuponViewModel;
         }
     }
 }

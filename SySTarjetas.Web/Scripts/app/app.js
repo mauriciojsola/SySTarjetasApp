@@ -290,29 +290,44 @@ app.controller('CuponesController', ['$q', '$scope', '$http', 'uiGridConstants',
                     };
 
                     $scope.agregarCupon = function () {
-
                         ModalService.showModal({
                             templateUrl: 'scripts/app/views/cupones/new.html',
-                            controller: "ModalController"
+                            controller: "AgregarCuponController"
                         }).then(function (modal) {
-
                             //it's a bootstrap element, use 'modal' to show it
                             modal.element.modal();
                             modal.close.then(function (result) {
-                                $log.info('Modal dismissed at: ' + new Date());
+                                //$log.info('Modal dismissed at: ' + new Date() + " RESULT: " + result);
+                                console.debug(result);
                             });
                         });
                     };
-
 
                 }
 ]);
 
 
-app.controller('ModalController', function ($scope, close) {
-
-    $scope.close = function (result) {
-        close(result, 500); // close, but give 500ms for bootstrap to animate
+app.controller('AgregarCuponController', ['$scope', '$element', 'close', function ($scope, $element, close) {
+    $scope.close = function () {
+        close({
+            name: $scope.name,
+            username: $scope.username,
+            email: $scope.email
+        }, 500); // close, but give 500ms for bootstrap to animate
     };
 
-});
+    //  This cancel function must use the bootstrap, 'modal' function because
+    //  the doesn't have the 'data-dismiss' attribute.
+    $scope.cancel = function () {
+        //  Manually hide the modal.
+        $element.modal('hide');
+
+        //  Now call close, returning control to the caller.
+        close({
+            name: $scope.name,
+            username: $scope.username,
+            email: $scope.email
+        }, 500); // close, but give 500ms for bootstrap to animate
+    };
+
+}]);
