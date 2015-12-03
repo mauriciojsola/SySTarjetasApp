@@ -1,10 +1,7 @@
 ﻿using System.Web.Http;
 using Autofac;
 using Autofac.Integration.WebApi;
-using AutoMapper;
 using Newtonsoft.Json.Serialization;
-using SySTarjetas.Api.Models;
-using SySTarjetas.Core;
 
 namespace SySTarjetas.Api
 {
@@ -37,12 +34,7 @@ namespace SySTarjetas.Api
                 contractResolver.IgnoreSerializableAttribute = true;
             });
 
-            Mapper.Initialize(cfg =>
-            {
-                cfg.CreateMap<Transaccion, CuponViewModel>()
-                    .ForMember(dest => dest.Cuotas, opt => opt.MapFrom(x => x.CantidadCuotas))
-                    .ForMember(dest => dest.RazonSocial, opt => opt.MapFrom(x => x.Comercio.RazonSocial));
-            });
+            AutoMapperConfiguration.Configure();
         }
     }
 }

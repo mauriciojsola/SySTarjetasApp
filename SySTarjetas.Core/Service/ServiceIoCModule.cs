@@ -8,12 +8,6 @@ namespace SySTarjetas.Core.Service
         {
             base.Load(builder);
 
-            //builder.RegisterAssemblyTypes(ThisAssembly)
-            //       .AssignableTo<IService>()
-            //       .AsImplementedInterfaces()
-            //       .PropertiesAutowired()
-            //       .InstancePerLifetimeScope();
-
             builder.RegisterAssemblyTypes(ThisAssembly)
                    .AssignableTo<IService>()
                    .AsImplementedInterfaces()
