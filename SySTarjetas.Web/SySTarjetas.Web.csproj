@@ -22,6 +22,7 @@
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -141,7 +142,11 @@
     <Content Include="Scripts\angular-ui\ui-bootstrap.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
     <Content Include="Scripts\app\app.js" />
+    <Content Include="Scripts\app\services.js" />
+    <Content Include="Scripts\app\directives.js" />
+    <Content Include="Scripts\app\factories.js" />
     <Content Include="Scripts\app\controllers.js" />
+    <Content Include="Scripts\app\views\cupones\new - Copy.html" />
     <Content Include="Scripts\app\views\cupones\new.html" />
     <Content Include="Scripts\app\views\cupones\list.html" />
     <Content Include="Scripts\app\views\index.html" />

@@ -33,6 +33,10 @@ namespace SySTarjetas.Web
                .Include("~/scripts/ui-grid.js")
                .Include("~/scripts/loading-bar.js")
                .Include("~/scripts/app/app.js")
+               .Include("~/scripts/app/controllers.js")
+               .Include("~/scripts/app/directives.js")
+               .Include("~/scripts/app/factories.js")
+               .Include("~/scripts/app/services.js")
                .Include("~/scripts/angular-ui/ui-bootstrap-tpls.js")
                .Include("~/scripts/angular-modal-service.js")
                );
