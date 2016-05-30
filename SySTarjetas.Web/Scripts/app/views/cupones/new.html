@@ -22,9 +22,7 @@
         <div class="col-md-3">
             <div class="form-group">
                 <label for="titular">Fecha</label>
-                <select id="titular" class="form-control" ng-model="titular" ng-options="titular.FullName for titular in titulares track by titular.Id" ng-change="loadCards()" class="form-control">
-                    <option value=''>Seleccione Titular</option>
-                </select>
+                <date-picker ng-model="dt" class="well well-sm" datepicker-options="options"></date-picker>
             </div>
         </div>
         <div class="col-md-5">
