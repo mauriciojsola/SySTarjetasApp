@@ -6,11 +6,11 @@ angular.module('SysApp').config(['$routeProvider', function ($routeProvider) {
 
     $routeProvider
         .when("/cupones", {
-            controller: "CuponesController",
+            controller: "ListCuponesController",
             templateUrl: "Scripts/app/views/cupones/list.html"
         })
         .when("/cupones/new", {
-            controller: "CuponesController",
+            controller: "EditarCuponesController",
             templateUrl: "Scripts/app/views/cupones/new.html"
         })
         .when("/index", {

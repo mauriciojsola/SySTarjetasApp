@@ -1,11 +1,14 @@
 ﻿'use strict';
 
-angular.module('SysApp').controller('CuponesController', ['$q', '$scope', '$http', 'uiGridConstants', 'ModalService', '$log', 'ListCuponesService',
-                function ($q, $scope, $http, uiGridConstants, ModalService, $log, listCuponesService) {
+angular.module('SysApp').controller('ListCuponesController', ['$q', '$scope', '$http', 'uiGridConstants', 'ModalService', '$log', 'TitularesService', 'TarjetasService', 'CuponesService',
+                function ($q, $scope, $http, uiGridConstants, ModalService, $log, titularesService, tarjetasService, cuponesService) {
 
                     $scope.pageSize = 25;
                     $scope.pageNumber = 1;
                     $scope.sort = null;
+
+                    var now = new Date();
+                    $scope.selectedDate = now;
 
                     var getQueryParams = function () {
                         return {
@@ -32,7 +35,7 @@ angular.module('SysApp').controller('CuponesController', ['$q', '$scope', '$http
                     var getCupones = function () {
 
                         if (paginationOptions.tarjetaId) {
-                            listCuponesService.listCupones(paginationOptions).then(function (result) {
+                            cuponesService.listCupones(paginationOptions).then(function (result) {
                                 $scope.gridOptions.totalItems = result.TotalCount;
                                 $scope.gridOptions.data = result.Items;
                             },
@@ -71,7 +74,7 @@ angular.module('SysApp').controller('CuponesController', ['$q', '$scope', '$http
                         columnDefs: [
                             { field: 'FechaCompra', displayName: 'Fecha Compra', enableSorting: false },
                             { field: 'NumeroCupon', displayName: 'Numero Cupón', enableSorting: false },
-                            { field: 'RazonSocial', displayName: 'Razón Social', enableSorting: false },
+                            { field: 'RazonSocial', displayName: 'Razón Social', enableSorting: true },
                             { field: 'Cuotas', displayName: 'Cuotas', enableSorting: false },
                             { field: 'ImporteFormateado', displayName: 'Importe', enableSorting: false },
                             { field: 'Id', displayName: 'Actions', cellTemplate: '<div class="ui-grid-cell-contents"><button class="btn btn-warning btn-xs" ng-click="grid.appScope.editCupon(row.entity.Id)"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit&nbsp;</button></div>' }
@@ -103,7 +106,7 @@ angular.module('SysApp').controller('CuponesController', ['$q', '$scope', '$http
                     $scope.tarjetas = [];
                     $scope.tarjetaId = null;
 
-                    listCuponesService.listTitulares().then(
+                    titularesService.listTitulares().then(
                         function (result) {
                             $scope.titulares = result;
                             $scope.titular = null;
@@ -118,7 +121,7 @@ angular.module('SysApp').controller('CuponesController', ['$q', '$scope', '$http
                     $scope.loadCards = function () {
                         var titularId = $scope.titular ? $scope.titular.Id : null;
                         if (titularId) {
-                            $scope.tarjetas = listCuponesService.listTarjetas({ titularId: titularId }).then(
+                            $scope.tarjetas = tarjetasService.listTarjetas({ titularId: titularId }).then(
                                 function (result) {
                                     $scope.tarjetas = result;
                                 });
@@ -162,11 +165,59 @@ angular.module('SysApp').controller('CuponesController', ['$q', '$scope', '$http
                     //};
 
                     $scope.newCupon = function () {
-                        
+
                     };
 
                 }
 ]);
+
+angular.module('SysApp').controller('EditarCuponesController', ['$scope', 'TitularesService', 'TarjetasService', 'CuponesService', 'ComerciosService',
+    function ($scope, titularesService, tarjetasService, cuponesService, comerciosService) {
+        $scope.titulares = [];
+        $scope.titularId = null;
+        $scope.tarjetas = [];
+        $scope.tarjetaId = null;
+        $scope.comercios = [];
+        $scope.comercioId = null;
+        var now = new Date();
+        $scope.selectedDate = now;
+
+        titularesService.listTitulares().then(
+                           function (result) {
+                               $scope.titulares = result;
+                               $scope.titular = null;
+                               $scope.tarjeta = null;
+                               $scope.loadCards();
+                           },
+                           function (error) {
+                               alert(error);
+                           }
+                       );
+
+        comerciosService.listComercios().then(
+                               function (result) {
+                                   $scope.comercios = result;
+                               },
+                               function (error) {
+                                   alert(error);
+                               }
+                           );
+
+
+        $scope.loadCards = function () {
+            var titularId = $scope.titular ? $scope.titular.Id : null;
+            if (titularId) {
+                $scope.tarjetas = tarjetasService.listTarjetas({ titularId: titularId }).then(
+                    function (result) {
+                        $scope.tarjetas = result;
+                    });
+            } else {
+                $scope.tarjetas = null;
+            }
+        };
+
+
+    }]);
 
 
 angular.module('SysApp').controller('AgregarCuponController', ['$scope', '$element', 'close', function ($scope, $element, close) {

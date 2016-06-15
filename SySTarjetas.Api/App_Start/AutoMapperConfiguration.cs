@@ -13,6 +13,8 @@ namespace SySTarjetas.Api
                 cfg.CreateMap<Transaccion, CuponViewModel>()
                     .ForMember(dest => dest.Cuotas, opt => opt.MapFrom(x => x.CantidadCuotas))
                     .ForMember(dest => dest.RazonSocial, opt => opt.MapFrom(x => x.Comercio.RazonSocial));
+
+                cfg.CreateMap<Comercio, ComercioViewModel>();
             });
         }
     }

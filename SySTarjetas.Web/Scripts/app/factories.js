@@ -30,3 +30,15 @@ angular.module('SysApp').factory('TarjetasRepo', ['$resource',
         });
     }
 ]);
+
+
+angular.module('SysApp').factory('ComerciosRepo', ['$resource',
+    function ($resource) {
+        return $resource('/api/comercios/list/',
+        {
+            'query': {
+                method: 'GET', isArray: true
+            }
+        });
+    }
+]);
