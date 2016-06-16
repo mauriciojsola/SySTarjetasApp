@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using AutoMapper;
@@ -8,56 +9,65 @@ using SySTarjetas.Core.Service;
 
 namespace SySTarjetas.Api.Controllers
 {
-  [RoutePrefix("api/cupones")]
-  public class CuponesController : ApiControllerBase
-  {
-    public ISySTarjetasService SySTarjetasService { get; set; }
-    public ITransaccionRepository TransaccionRepository { get; set; }
-
-    [HttpGet]
-    [Route("list")]
-    public PagedResponse<CuponViewModel> List(int tarjetaId, int anio, int mes, bool listarTodos, int pageSize, int pageNumber)
+    [RoutePrefix("api/cupones")]
+    public class CuponesController : ApiControllerBase
     {
-      var listadoCupones = new List<CuponViewModel>();
-      var totalCount = 0;
+        public ISySTarjetasService SySTarjetasService { get; set; }
+        public ITransaccionRepository TransaccionRepository { get; set; }
 
-      if (tarjetaId > -1)
-      {
-        var cupones = listarTodos
-            ? SySTarjetasService.TraerCuponesPorTarjeta(tarjetaId)
-            : SySTarjetasService.TraerCuponesPorTarjetaAnioYMes(tarjetaId, anio, mes);
+        [HttpGet]
+        [Route("list")]
+        public PagedResponse<CuponViewModel> List(int tarjetaId, int anio, int mes, bool listarTodos, int pageSize, int pageNumber)
+        {
+            var listadoCupones = new List<CuponViewModel>();
+            var totalCount = 0;
 
-        totalCount = cupones.Count;
+            if (tarjetaId > -1)
+            {
+                var cupones = listarTodos
+                    ? SySTarjetasService.TraerCuponesPorTarjeta(tarjetaId)
+                    : SySTarjetasService.TraerCuponesPorTarjetaAnioYMes(tarjetaId, anio, mes);
 
-        listadoCupones = cupones.OrderBy(x => x.FechaCompra).Skip((pageNumber - 1) * pageSize).Take(pageSize).Select(
-            x =>
-                new CuponViewModel
-                {
-                  Id = x.Id,
-                  RazonSocial = x.Comercio.RazonSocial,
-                  FechaCompra = x.FechaCompra.ToShortDateString(),
-                  FechaCompraParaOrdenar = x.FechaCompra,
-                  NumeroCupon = x.NumeroCupon,
-                  Importe = x.Importe,
-                  ImporteFormateado = x.Importe.ToString("N"),
-                  Cuotas = x.CantidadCuotas
-                }).ToList();
-      }
+                totalCount = cupones.Count;
 
-      return new PagedResponse<CuponViewModel>(listadoCupones.OrderBy(x => x.FechaCompraParaOrdenar).ToList(), pageNumber, pageSize, totalCount);
+                listadoCupones = cupones.OrderBy(x => x.FechaCompra).Skip((pageNumber - 1) * pageSize).Take(pageSize).Select(
+                    x =>
+                        new CuponViewModel
+                        {
+                            Id = x.Id,
+                            Comercio = x.Comercio.RazonSocial,
+                            FechaCompra = x.FechaCompra.ToShortDateString(),
+                            FechaCompraParaOrdenar = x.FechaCompra,
+                            NumeroCupon = x.NumeroCupon,
+                            Importe = x.Importe,
+                            ImporteFormateado = x.Importe.ToString("N"),
+                            Cuotas = x.CantidadCuotas
+                        }).ToList();
+            }
+
+            return new PagedResponse<CuponViewModel>(listadoCupones.OrderBy(x => x.FechaCompraParaOrdenar).ToList(), pageNumber, pageSize, totalCount);
+        }
+
+        [HttpGet]
+        [Route("{cuponId}/details")]
+        public CuponViewModel GetCupon(int cuponId)
+        {
+            var cuponViewModel = new CuponViewModel();
+            var cupon = TransaccionRepository.GetById(cuponId);
+            if (cupon != null)
+            {
+                cuponViewModel = Mapper.Map<CuponViewModel>(cupon);
+            }
+            return cuponViewModel;
+        }
+
+        [HttpPost]
+        [Route("save")]
+        public void SaveCupon(CuponViewModel cupon)
+        {
+            SySTarjetasService.GrabarCupon(cupon.TarjetaId,  DateTime.Parse(cupon.FechaCompra), cupon.ComercioId,
+                                                       cupon.NumeroCupon,cupon.Importe,cupon.Cuotas, "NADA");
+        }
+
     }
-
-    [HttpGet]
-    [Route("{cuponId}/details")]
-    public CuponViewModel GetCupon(int cuponId)
-    {
-      var cuponViewModel = new CuponViewModel();
-      var cupon = TransaccionRepository.GetById(cuponId);
-      if (cupon != null)
-      {
-        cuponViewModel = Mapper.Map<CuponViewModel>(cupon);
-      }
-      return cuponViewModel;
-    }
-  }
 }

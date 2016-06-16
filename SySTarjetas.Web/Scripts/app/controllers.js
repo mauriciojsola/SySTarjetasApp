@@ -74,7 +74,7 @@ angular.module('SysApp').controller('ListCuponesController', ['$q', '$scope', '$
                         columnDefs: [
                             { field: 'FechaCompra', displayName: 'Fecha Compra', enableSorting: false },
                             { field: 'NumeroCupon', displayName: 'Numero Cupón', enableSorting: false },
-                            { field: 'RazonSocial', displayName: 'Razón Social', enableSorting: true },
+                            { field: 'Comercio', displayName: 'Razón Social', enableSorting: true },
                             { field: 'Cuotas', displayName: 'Cuotas', enableSorting: false },
                             { field: 'ImporteFormateado', displayName: 'Importe', enableSorting: false },
                             { field: 'Id', displayName: 'Actions', cellTemplate: '<div class="ui-grid-cell-contents"><button class="btn btn-warning btn-xs" ng-click="grid.appScope.editCupon(row.entity.Id)"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit&nbsp;</button></div>' }
@@ -216,6 +216,18 @@ angular.module('SysApp').controller('EditarCuponesController', ['$scope', 'Titul
             }
         };
 
+        $scope.saveCupon = function() {
+            var cupon = {
+                TitularId: $scope.titular.Id,
+                TarjetaId: $scope.tarjeta.Id,
+                ComercioId: $scope.comercio.Id,
+                FechaCompra: $scope.selectedDate,
+                NumeroCupon: $scope.numeroCupon,
+                Importe: $scope.importe,
+                Cuotas: $scope.cuotas
+        }
+            cuponesService.saveCupon(cupon);
+        };
 
     }]);
 

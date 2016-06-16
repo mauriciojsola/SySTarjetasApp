@@ -110,6 +110,7 @@
     <Compile Include="Controllers\ComerciosController.cs" />
     <Compile Include="Controllers\TitularesController.cs" />
     <Compile Include="Controllers\CuponesController.cs" />
+    <Compile Include="Filters\UnitOfWorkFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

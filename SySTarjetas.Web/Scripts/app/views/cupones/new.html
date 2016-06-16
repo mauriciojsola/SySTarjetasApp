@@ -1,6 +1,6 @@
-﻿<div>
+﻿<div style="max-width: 800px;">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-sm-4 col-md-4 col-lg-4">
             <div class="form-group">
                 <label for="titular">Titular</label>
                 <select id="titular" class="form-control" ng-model="titular" ng-options="titular.FullName for titular in titulares track by titular.Id" ng-change="loadCards()" class="form-control">
@@ -8,7 +8,7 @@
                 </select>
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-sm-5 col-md-5 col-lg-5">
             <div class="form-group">
                 <label for="tarjeta">Tarjeta</label>
                 <select id="tarjeta" class="form-control" ng-model="tarjeta" ng-options="tarjeta.FullDescription for tarjeta in tarjetas track by tarjeta.Id" ng-disabled="!tarjetas" ng-change="" class="form-control">
@@ -19,13 +19,13 @@
     </div>
 
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-sm-4 col-md-4 col-lg-4">
             <div class="form-group" ng-class="{'has-error': datepickerForm.fechaCupon.$invalid}">
                 <label for="titular">Fecha</label>
                 <input class="form-control" ng-model="selectedDate" data-min-date="02/10/90" data-autoclose="1" name="fechaCupon" bs-datepicker type="text">
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-sm-5 col-md-5 col-lg-5">
             <div class="form-group">
                 <label for="comercio">Comercio</label>
                 <select id="comercio" class="form-control" ng-model="comercio" ng-options="comercio.RazonSocial for comercio in comercios track by comercio.Id" ng-disabled="!comercios" ng-change="" class="form-control">
@@ -35,5 +35,32 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <div class="form-group">
+                <label for="titular">Nro. Cupón</label>
+                <input class="form-control" ng-model="numeroCupon" name="numeroCupon" type="number">
+            </div>
+
+        </div>
+         <div class="col-lg-3 col-md-3 col-sm-3">
+            <div class="form-group">
+                <label for="titular">Importe</label>
+                <input class="form-control" ng-model="importe" name="importe" type="number" step="0.01">
+            </div>
+        </div>
+         <div class="col-lg-3 col-md-3 col-sm-3">
+            <div class="form-group">
+                <label for="titular">Cuotas</label>
+                <input class="form-control" ng-model="cuotas" name="cuotas" type="number">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <input type="button" id="btnSave" name="btnSave" ng-click="saveCupon()" value="Grabar" class="btn btn-primary"/>
+        </div>
+    </div>
 
 </div>

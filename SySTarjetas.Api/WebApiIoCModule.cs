@@ -2,6 +2,7 @@
 using Autofac;
 using Autofac.Integration.WebApi;
 using Newtonsoft.Json.Serialization;
+using SySTarjetas.Api.Filters;
 
 namespace SySTarjetas.Api
 {
@@ -12,6 +13,9 @@ namespace SySTarjetas.Api
             //Setup WebApi controllers & routes
             builder.RegisterApiControllers(ThisAssembly)
                 .PropertiesAutowired();
+
+            builder.Register(c => new UnitOfWorkFilter())
+                .AsWebApiActionFilterFor<ApiController>().PropertiesAutowired().InstancePerRequest();
 
             var config = GlobalConfiguration.Configuration;
 

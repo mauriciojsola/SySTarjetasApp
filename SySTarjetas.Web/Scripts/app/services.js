@@ -1,9 +1,13 @@
 ﻿'use strict';
 
-angular.module('SysApp').service('CuponesService', ['$q', 'CuponesRepo', function ($q, cuponesRepo) {
+angular.module('SysApp').service('CuponesService', ['$q', '$http', 'CuponesRepo', function ($q, $http, cuponesRepo) {
     return {
         listCupones: function (limit) {
             return cuponesRepo.get(limit).$promise;
+        },
+
+        saveCupon: function (cupon) {
+            $http.post('api/cupones/save',cupon);
         }
     };
 
