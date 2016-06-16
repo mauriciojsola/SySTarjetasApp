@@ -3,7 +3,6 @@ using System.Linq;
 using System.Web.Http;
 using AutoMapper;
 using SySTarjetas.Api.Models;
-using SySTarjetas.Core;
 using SySTarjetas.Core.Repository;
 using WebApi.OutputCache.V2;
 
@@ -20,14 +19,10 @@ namespace SySTarjetas.Api.Controllers
         public IList<ComercioViewModel> List()
         {
             return ComercioRepository.GetAll().OrderBy(x => x.RazonSocial).ToList()
-                .Select(x => MapToModel(x)).ToList();
+                .Select(x => Mapper.Map<ComercioViewModel>(x)).ToList();
 
         }
 
-        private ComercioViewModel MapToModel(Comercio comercio)
-        {
-            return Mapper.Map<ComercioViewModel>(comercio);
-        }
     }
 
 }
