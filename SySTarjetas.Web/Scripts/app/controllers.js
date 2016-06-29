@@ -172,7 +172,7 @@ angular.module('SysApp').controller('ListCuponesController', ['$q', '$scope', '$
 ]);
 
 angular.module('SysApp').controller('EditarCuponesController', ['$scope', 'TitularesService', 'TarjetasService', 'CuponesService', 'ComerciosService',
-    function ($scope, titularesService, tarjetasService, cuponesService, comerciosService) {
+    function ($scope,titularesService, tarjetasService, cuponesService, comerciosService) {
         $scope.titulares = [];
         $scope.titularId = null;
         $scope.tarjetas = [];
@@ -216,7 +216,11 @@ angular.module('SysApp').controller('EditarCuponesController', ['$scope', 'Titul
             }
         };
 
-        $scope.saveCupon = function() {
+        $scope.saveCupon = function () {
+
+            if (!$scope.newCuponForm.$valid)
+                return;
+
             var cupon = {
                 TitularId: $scope.titular.Id,
                 TarjetaId: $scope.tarjeta.Id,
@@ -227,6 +231,7 @@ angular.module('SysApp').controller('EditarCuponesController', ['$scope', 'Titul
                 Cuotas: $scope.cuotas
         }
             cuponesService.saveCupon(cupon);
+            $scope.newCuponForm.$setPristine();
         };
 
     }]);

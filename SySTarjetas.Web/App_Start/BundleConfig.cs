@@ -29,6 +29,7 @@ namespace SySTarjetas.Web
                .Include("~/scripts/angular-route.js")
                .Include("~/scripts/angular-ui-router.js")
                .Include("~/scripts/angular-animate.js")
+               .Include("~/scripts/angular-messages.js")
                .Include("~/scripts/toaster.js")
                .Include("~/scripts/ui-grid.js")
                .Include("~/scripts/loading-bar.js")
