@@ -43,7 +43,7 @@ angular.module('SysApp').factory('ComerciosRepo', ['$resource',
     }
 ]);
 
-// https://github.com/jirikavi/AngularJS-Toaster toast-center
+// https://github.com/jirikavi/AngularJS-Toaster 
 angular.module('SysApp').factory('MessagingService', ['toaster', function (toaster) {
     return {
         showSuccess: function (message) {
@@ -51,20 +51,12 @@ angular.module('SysApp').factory('MessagingService', ['toaster', function (toast
                 type: 'success',
                 title: '',
                 body: message,
+                bodyOutputType: 'trustedHtml',
                 timeout: 5000
             });
         },
 
-        showError: function (responseError) {
-            var message = responseError.message;
-            message += '<ul>';
-            if (responseError.hasErrors) {
-                for (var i = 0; i < responseError.errors.length; i++) {
-                    message += '<li>' + responseError.errors[i] + '</li>';
-                }
-            }
-            message += '</ul>';
-
+        showError: function (message) {
             toaster.pop({
                 type: 'error',
                 title: '',
@@ -73,6 +65,36 @@ angular.module('SysApp').factory('MessagingService', ['toaster', function (toast
                 timeout: 15000,
                 position: 'toast-center'
             });
+        },
+
+        showMessage: function (response) {
+            var message = response.message;
+            message += '<ul>';
+            if (response.hasErrors) {
+                for (var i = 0; i < response.errors.length; i++) {
+                    message += '<li>' + response.errors[i] + '</li>';
+                }
+            }
+            message += '</ul>';
+
+            if (response.hasErrors) {
+                toaster.pop({
+                    type: 'error',
+                    title: '',
+                    body: message,
+                    bodyOutputType: 'trustedHtml',
+                    timeout: 15000,
+                    position: 'toast-center'
+                });
+            } else {
+                toaster.pop({
+                    type: 'success',
+                    title: '',
+                    body: message,
+                    bodyOutputType: 'trustedHtml',
+                    timeout: 5000
+                });
+            }
         }
     };
 }]);

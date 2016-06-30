@@ -233,12 +233,12 @@ angular.module('SysApp').controller('EditarCuponesController', ['$scope', 'Titul
             cuponesService.saveCupon(cupon,
                 function (success) {
                     var response = utils.parseResponse(success);
-                    messagingService.showSuccess(response.message);
+                    messagingService.showMessage(response);
                     $scope.newCuponForm.$setPristine();
                 },
                 function(error) {
                     var response = utils.parseResponse(error);
-                    messagingService.showError(response);
+                    messagingService.showMessage(response);
                 });
         };
 

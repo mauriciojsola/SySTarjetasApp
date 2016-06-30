@@ -76,7 +76,7 @@ namespace SySTarjetas.Api.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequestResponse(new JsonResponse("Error al grabar el cupón", new List<string> { ex.Message }));
+                return GenericRequestResponse(new JsonResponse("Error al grabar el cupón", new List<string> { ex.Message }));
             }
 
         }
