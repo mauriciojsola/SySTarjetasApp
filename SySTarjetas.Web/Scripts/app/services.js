@@ -6,8 +6,14 @@ angular.module('SysApp').service('CuponesService', ['$q', '$http', 'CuponesRepo'
             return cuponesRepo.get(limit).$promise;
         },
 
-        saveCupon: function (cupon) {
-            $http.post('api/cupones/save',cupon);
+        saveCupon: function (cupon, successCallback, errorCallback) {
+            $http.post('api/cupones/save', cupon)
+                .then(function(response) {
+                    console.debug('success: ' + response);
+                }, function(response) {
+                    console.debug('error: ' + response);
+
+                });
         }
     };
 
@@ -39,3 +45,4 @@ angular.module('SysApp').service('ComerciosService', ['$q', 'ComerciosRepo', fun
         }
     };
 }]);
+

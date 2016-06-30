@@ -2,7 +2,7 @@
 
     <form name="newCuponForm" novalidate>
 
-
+        <toaster-container></toaster-container>
         <div class="row">
             <div class="col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group" ng-class="{ 'has-error': newCuponForm.$submitted && newCuponForm.titular.$error.required}">
@@ -33,39 +33,55 @@
 
         <div class="row">
             <div class="col-sm-4 col-md-4 col-lg-4">
-                <div class="form-group" ng-class="{'has-error': datepickerForm.fechaCupon.$invalid}">
-                    <label for="titular">Fecha</label>
-                    <input class="form-control" ng-model="selectedDate" data-min-date="02/10/90" data-autoclose="1" name="fechaCupon" bs-datepicker type="text">
+                <div class="form-group" ng-class="{'has-error': newCuponForm.selectedDate.$invalid || newCuponForm.selectedDate.$error.required}">
+                    <label for="selectedDate">Fecha</label>
+                    <input class="form-control" ng-model="selectedDate" name="selectedDate" required="" data-min-date="02/10/90" data-autoclose="1" bs-datepicker type="text">
+                    <div class="help-block" ng-messages="newCuponForm.selectedDate.$error" ng-if="newCuponForm.$submitted">
+                        <span ng-message="required">fecha requerida</span>
+                        <span ng-message="ng-invalid">fecha invalida</span>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-5 col-md-5 col-lg-5">
-                <div class="form-group">
+                <div class="form-group" ng-class="{ 'has-error': newCuponForm.$submitted && newCuponForm.comercio.$error.required}">
                     <label for="comercio">Comercio</label>
-                    <select id="comercio" class="form-control" ng-model="comercio" ng-options="comercio.RazonSocial for comercio in comercios track by comercio.Id" ng-disabled="!comercios" ng-change="" class="form-control">
+                    <select id="comercio" name="comercio" class="form-control" required="" ng-model="comercio" ng-options="comercio.RazonSocial for comercio in comercios track by comercio.Id" ng-disabled="!comercios" ng-change="" class="form-control">
                         <option value=''>Seleccione Comercio</option>
                     </select>
+                    <div class="help-block" ng-messages="newCuponForm.comercio.$error" ng-if="newCuponForm.$submitted && newCuponForm.comercio.$error.required">
+                        <span ng-message="required">comercio es requerido</span>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="form-group">
+                <div class="form-group" ng-class="{ 'has-error': newCuponForm.$submitted && newCuponForm.numeroCupon.$error.required}">
                     <label for="titular">Nro. Cupón</label>
-                    <input class="form-control" ng-model="numeroCupon" name="numeroCupon" type="number">
+                    <input ng-only-number data-max-decimal-points=1 class="form-control" ng-model="numeroCupon" name="numeroCupon" type="number" required="">
+                    <div class="help-block" ng-messages="newCuponForm.numeroCupon.$error" ng-if="newCuponForm.$submitted && newCuponForm.numeroCupon.$error.required">
+                        <span ng-message="required">numero de cupón es requerido</span>
+                    </div>
                 </div>
 
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="form-group">
+                <div class="form-group" ng-class="{ 'has-error': newCuponForm.$submitted && newCuponForm.importe.$error.required}">
                     <label for="titular">Importe</label>
-                    <input class="form-control" ng-model="importe" name="importe" type="number" step="0.01">
+                    <input ng-only-number data-max-decimal-points=2 class="form-control" ng-model="importe" name="importe" type="number" step="0.01" required="">
+                    <div class="help-block" ng-messages="newCuponForm.importe.$error" ng-if="newCuponForm.$submitted && newCuponForm.importe.$error.required">
+                        <span ng-message="required">importe es requerido</span>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="form-group">
+                <div class="form-group" ng-class="{ 'has-error': newCuponForm.$submitted && newCuponForm.cuotas.$error.required}">
                     <label for="titular">Cuotas</label>
-                    <input class="form-control" ng-model="cuotas" name="cuotas" type="number">
+                    <input ng-only-number data-max-decimal-points=1 class="form-control" ng-model="cuotas" name="cuotas" type="number" required="">
+                    <div class="help-block" ng-messages="newCuponForm.cuotas.$error" ng-if="newCuponForm.$submitted && newCuponForm.cuotas.$error.required">
+                        <span ng-message="required">cuotas es requerido</span>
+                    </div>
                 </div>
             </div>
         </div>

@@ -42,3 +42,11 @@ angular.module('SysApp').factory('ComerciosRepo', ['$resource',
         });
     }
 ]);
+
+angular.module('SysApp').factory('MessagingService', ['toaster', function (toaster) {
+    return {
+        showSuccess: function (message) {
+            toaster.pop('success', '', message);
+        }
+    };
+}]);
