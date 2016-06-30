@@ -39,31 +39,6 @@ angular.module('SysApp').directive('monthDropDown', function () {
     }
 });
 
-//angular.module('SysApp').directive('datePicker', ['ui.bootstrap.datepicker', function () {
-//    var currentMonth = new Date().getMonth();
-//    return {
-//        link: function (scope, element, attrs) {
-//            scope.months = [];
-//            scope.months.push({ number: 1, name: "Enero" });
-//            scope.months.push({ number: 2, name: "Febrero" });
-//            scope.months.push({ number: 3, name: "Marzo" });
-//            scope.months.push({ number: 4, name: "Abril" });
-//            scope.months.push({ number: 5, name: "Mayo" });
-//            scope.months.push({ number: 6, name: "Junio" });
-//            scope.months.push({ number: 7, name: "Julio" });
-//            scope.months.push({ number: 8, name: "Agosto" });
-//            scope.months.push({ number: 9, name: "Setiembre" });
-//            scope.months.push({ number: 10, name: "Octubre" });
-//            scope.months.push({ number: 11, name: "Noviembre" });
-//            scope.months.push({ number: 12, name: "Diciembre" });
-
-//            scope.month = { number: currentMonth + 1 };
-//        },
-//        template: '<select ng-model="month" ng-options="month.name for month in months track by month.number" ng-change="loadCupones()" class="form-control"><option value="">Seleccione Mes</option></select>'
-//    }
-//}]
-//);
-
 // Draggable directive from: http://docs.angularjs.org/guide/compiler
 
 angular.module('SysApp').directive('draggable', function ($document) {
@@ -211,3 +186,15 @@ angular.module('SysApp').directive('ngOnlyNumber', function () {
         }
     }
 });
+
+
+angular.module('SysApp').directive('editCupon', ['', function () {
+    var currentMonth = new Date().getMonth();
+    return {
+        templateUrl: 'Scripts/app/views/cupones/cupon-form.html',
+        scope: {
+            customerInfo: '=info'
+        }
+    }
+}]
+);

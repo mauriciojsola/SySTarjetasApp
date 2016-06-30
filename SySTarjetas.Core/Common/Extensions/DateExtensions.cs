@@ -214,9 +214,15 @@ namespace SySTarjetas.Core.Common.Extensions
             return CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month);
         }
 
-        public static DateTime EndOfDay(this DateTime day)
+        public static DateTime AbsoluteStart(this DateTime dateTime)
         {
-            return day.AddDays(1).Subtract(TimeSpan.FromTicks(1));
+            return dateTime.Date;
         }
+
+        public static DateTime AbsoluteEnd(this DateTime dateTime)
+        {
+            return AbsoluteStart(dateTime).AddDays(1).AddTicks(-1);
+        }
+
     }
 }

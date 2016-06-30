@@ -44,7 +44,7 @@ angular.module('SysApp').factory('ComerciosRepo', ['$resource',
 ]);
 
 // https://github.com/jirikavi/AngularJS-Toaster 
-angular.module('SysApp').factory('MessagingService', ['toaster', function (toaster) {
+angular.module('SysApp').factory('AlertService', ['toaster', function (toaster) {
     return {
         showSuccess: function (message) {
             toaster.pop({

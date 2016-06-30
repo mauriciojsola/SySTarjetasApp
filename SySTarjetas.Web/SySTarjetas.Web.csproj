@@ -196,6 +196,7 @@
     <Content Include="Scripts\app\directives.js" />
     <Content Include="Scripts\app\factories.js" />
     <Content Include="Scripts\app\controllers.js" />
+    <Content Include="Scripts\app\views\cupones\cupon-form.html" />
     <Content Include="Scripts\app\views\cupones\new - Copy.html" />
     <Content Include="Scripts\app\views\cupones\new.html" />
     <Content Include="Scripts\app\views\cupones\list.html" />

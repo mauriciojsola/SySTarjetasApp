@@ -13,6 +13,10 @@ angular.module('SysApp').config(['$routeProvider', function ($routeProvider) {
             controller: "EditarCuponesController",
             templateUrl: "Scripts/app/views/cupones/new.html"
         })
+        .when("/cupones/:cuponId/edit", {
+            controller: "EditarCuponesController",
+            templateUrl: "Scripts/app/views/cupones/edit.html"
+        })
         .when("/index", {
             templateUrl: "Scripts/app/views/index.html"
         });

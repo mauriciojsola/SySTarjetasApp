@@ -148,12 +148,11 @@ namespace SySTarjetas.Core.Service
         public bool ExisteCupon(int tarjetaId, DateTime fechaCupon, int comercioId, int nroCupon)
         {
            
-            var cupon = TransaccionRepository.GetAll().FirstOrDefault(x => x.Tarjeta.Id == tarjetaId
-                                                                           && x.FechaCompra == fechaCupon &&
+            var cupones = TransaccionRepository.GetAll().Where(x => x.Tarjeta.Id == tarjetaId &&
                                                                            x.Comercio.Id == comercioId
-                                                                           && x.NumeroCupon == nroCupon);
-            return cupon != null;
-           
+                                                                           && x.NumeroCupon == nroCupon).ToList();
+
+            return cupones.Any(x => x.FechaCompra.AbsoluteStart() == fechaCupon.AbsoluteStart());
         }
 
         public DateTime? TraerFechaDeCierre(int tarjetaId, int anio, int mes)

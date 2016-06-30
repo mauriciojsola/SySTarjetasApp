@@ -171,22 +171,33 @@ angular.module('SysApp').controller('ListCuponesController', ['$q', '$scope', '$
                 }
 ]);
 
-angular.module('SysApp').controller('EditarCuponesController', ['$scope', 'TitularesService', 'TarjetasService', 'CuponesService', 'ComerciosService', 'MessagingService', 'Utils',
-    function ($scope, titularesService, tarjetasService, cuponesService, comerciosService, messagingService, utils) {
+angular.module('SysApp').controller('EditarCuponesController', ['$scope', 'TitularesService', 'TarjetasService', 'CuponesService', 'ComerciosService', 'AlertService', 'Utils',
+    function ($scope, titularesService, tarjetasService, cuponesService, comerciosService, alertService, utils) {
+
+        $scope.resetForm = function() {
+            var now = new Date();
+            $scope.currentCupon = {
+                titularId: null,
+                tarjetaId: null,
+                comercioId: null,
+                selectedDate: now,
+                numeroCupon: '',
+                importe: '',
+                cuotas: ''
+            };
+        };
+
         $scope.titulares = [];
-        $scope.titularId = null;
         $scope.tarjetas = [];
-        $scope.tarjetaId = null;
         $scope.comercios = [];
-        $scope.comercioId = null;
-        var now = new Date();
-        $scope.selectedDate = now;
+
+        $scope.resetForm();
 
         titularesService.listTitulares().then(
                            function (result) {
                                $scope.titulares = result;
-                               $scope.titular = null;
-                               $scope.tarjeta = null;
+                               $scope.currentCupon.titularId = null;
+                               $scope.currentCupon.tarjetaId = null;
                                $scope.loadCards();
                            },
                            function (error) {
@@ -203,9 +214,8 @@ angular.module('SysApp').controller('EditarCuponesController', ['$scope', 'Titul
                                }
                            );
 
-
         $scope.loadCards = function () {
-            var titularId = $scope.titular ? $scope.titular.Id : null;
+            var titularId = $scope.currentCupon.titularId;
             if (titularId) {
                 $scope.tarjetas = tarjetasService.listTarjetas({ titularId: titularId }).then(
                     function (result) {
@@ -218,27 +228,30 @@ angular.module('SysApp').controller('EditarCuponesController', ['$scope', 'Titul
 
         $scope.saveCupon = function () {
 
-            if (!$scope.newCuponForm.$valid)
+            if (!$scope.cuponForm.$valid)
                 return;
 
             var cupon = {
-                TitularId: $scope.titular.Id,
-                TarjetaId: $scope.tarjeta.Id,
-                ComercioId: $scope.comercio.Id,
-                FechaCompra: $scope.selectedDate,
-                NumeroCupon: $scope.numeroCupon,
-                Importe: $scope.importe,
-                Cuotas: $scope.cuotas
+                TitularId: $scope.currentCupon.titularId,
+                TarjetaId: $scope.currentCupon.tarjetaId,
+                ComercioId: $scope.currentCupon.comercioId,
+                FechaCompra: $scope.currentCupon.selectedDate,
+                NumeroCupon: $scope.currentCupon.numeroCupon,
+                Importe: $scope.currentCupon.importe,
+                Cuotas: $scope.currentCupon.cuotas
             }
             cuponesService.saveCupon(cupon,
                 function (success) {
                     var response = utils.parseResponse(success);
-                    messagingService.showMessage(response);
-                    $scope.newCuponForm.$setPristine();
+                    alertService.showMessage(response);
+                    if (response.success) {
+                        $scope.resetForm();
+                        $scope.cuponForm.$setPristine();
+                    }
                 },
-                function(error) {
+                function (error) {
                     var response = utils.parseResponse(error);
-                    messagingService.showMessage(response);
+                    alertService.showMessage(response);
                 });
         };
 
