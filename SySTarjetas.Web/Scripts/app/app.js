@@ -32,7 +32,8 @@ angular
   .module('SysApp')
   .config(['toasterConfig', function (toasterConfig) {
       toasterConfig['close-button'] = true;
-      toasterConfig['time-out'] = 3000;
+      //toasterConfig['time-out'] = 5000;
+      toasterConfig['position-class'] = 'toast-top-center';
     }]);
 
 

@@ -6,13 +6,16 @@ angular.module('SysApp').service('CuponesService', ['$q', '$http', 'CuponesRepo'
             return cuponesRepo.get(limit).$promise;
         },
 
-        saveCupon: function (cupon, successCallback, errorCallback) {
+        saveCupon: function (cupon, callbackSuccess, callbackError) {
             $http.post('api/cupones/save', cupon)
-                .then(function(response) {
-                    console.debug('success: ' + response);
-                }, function(response) {
-                    console.debug('error: ' + response);
-
+                .then(function (success) {
+                    if (callbackSuccess) {
+                        callbackSuccess(success);
+                    }
+                }, function (error) {
+                    if (callbackError) {
+                        callbackError(error);
+                    }
                 });
         }
     };
@@ -44,5 +47,27 @@ angular.module('SysApp').service('ComerciosService', ['$q', 'ComerciosRepo', fun
             return comerciosRepo.query(limit).$promise;
         }
     };
+}]);
+
+
+angular.module('SysApp').service('Utils', [function () {
+    this.parseResponse = function (response) {
+        var result = {};
+        if (angular.isDefined(response.data)) {
+            var data = response.data;
+
+            result.success = data.Success;
+            result.message = data.Message;
+            result.hasErrors = data.HasErrors;
+            result.errors = [];
+
+            if (angular.isDefined(data.Errors)) {
+                for (var i = 0; i < data.Errors.length; i++) {
+                    result.errors.push(data.Errors[i]);
+                }
+            }
+        }
+        return result;
+    }
 }]);
 

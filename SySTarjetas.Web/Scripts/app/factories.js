@@ -43,10 +43,36 @@ angular.module('SysApp').factory('ComerciosRepo', ['$resource',
     }
 ]);
 
+// https://github.com/jirikavi/AngularJS-Toaster toast-center
 angular.module('SysApp').factory('MessagingService', ['toaster', function (toaster) {
     return {
         showSuccess: function (message) {
-            toaster.pop('success', '', message);
+            toaster.pop({
+                type: 'success',
+                title: '',
+                body: message,
+                timeout: 5000
+            });
+        },
+
+        showError: function (responseError) {
+            var message = responseError.message;
+            message += '<ul>';
+            if (responseError.hasErrors) {
+                for (var i = 0; i < responseError.errors.length; i++) {
+                    message += '<li>' + responseError.errors[i] + '</li>';
+                }
+            }
+            message += '</ul>';
+
+            toaster.pop({
+                type: 'error',
+                title: '',
+                body: message,
+                bodyOutputType: 'trustedHtml',
+                timeout: 15000,
+                position: 'toast-center'
+            });
         }
     };
 }]);

@@ -11,14 +11,24 @@ namespace SySTarjetas.Api.Controllers
             return GenericRequestResponse(HttpStatusCode.BadRequest, message);
         }
 
+        protected HttpResponseMessage BadRequestResponse(object content)
+        {
+            return GenericRequestResponse(HttpStatusCode.BadRequest, content);
+        }
+
         protected HttpResponseMessage ForbiddenResourceResponse(string message)
         {
             return GenericRequestResponse(HttpStatusCode.Forbidden, message);
         }
 
-        protected HttpResponseMessage StatusOkResponse(string message)
+        protected HttpResponseMessage SuccessResponse(string message)
         {
             return GenericRequestResponse(HttpStatusCode.OK, message);
+        }
+
+        protected HttpResponseMessage SuccessResponse(object content)
+        {
+            return GenericRequestResponse(HttpStatusCode.OK, content);
         }
 
         protected HttpResponseMessage GenericRequestResponse(string message)
@@ -26,7 +36,12 @@ namespace SySTarjetas.Api.Controllers
             return GenericRequestResponse(HttpStatusCode.OK, message);
         }
 
-        protected HttpResponseMessage GenericRequestResponse(HttpStatusCode httpStatusCode, string message)
+        protected HttpResponseMessage GenericRequestResponse(object content)
+        {
+            return GenericRequestResponse(HttpStatusCode.OK, content);
+        }
+
+        protected HttpResponseMessage GenericRequestResponse(HttpStatusCode httpStatusCode, object message)
         {
             return Request.CreateResponse(httpStatusCode, message);
         }

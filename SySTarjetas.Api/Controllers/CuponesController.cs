@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
+using SySTarjetas.Api.Common;
 using SySTarjetas.Api.Models;
 using SySTarjetas.Core.Repository;
 using SySTarjetas.Core.Service;
@@ -63,10 +65,20 @@ namespace SySTarjetas.Api.Controllers
 
         [HttpPost]
         [Route("save")]
-        public void SaveCupon(CuponViewModel cupon)
+        public HttpResponseMessage SaveCupon(CuponViewModel cupon)
         {
-            SySTarjetasService.GrabarCupon(cupon.TarjetaId,  DateTime.Parse(cupon.FechaCompra), cupon.ComercioId,
-                                                       cupon.NumeroCupon,cupon.Importe,cupon.Cuotas, "NADA");
+            try
+            {
+                SySTarjetasService.GrabarCupon(cupon.TarjetaId, DateTime.Parse(cupon.FechaCompra), cupon.ComercioId,
+                                                       cupon.NumeroCupon, cupon.Importe, cupon.Cuotas, "NADA");
+
+                return SuccessResponse(new JsonResponse("Cupón grabado correctamente"));
+            }
+            catch (Exception ex)
+            {
+                return BadRequestResponse(new JsonResponse("Error al grabar el cupón", new List<string> { ex.Message }));
+            }
+
         }
 
     }
