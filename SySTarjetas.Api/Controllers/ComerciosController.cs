@@ -23,6 +23,15 @@ namespace SySTarjetas.Api.Controllers
 
         }
 
+        [HttpGet]
+        [Route("select")]
+        public IEnumerable<KeyValueModel> Select()
+        {
+            return ComercioRepository.GetAll().OrderBy(x => x.RazonSocial).ToList()
+                .Select(x => new KeyValueModel { Key = x.Id.ToString(), Value = x.RazonSocial });
+
+        }
+
     }
 
 }

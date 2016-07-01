@@ -10,12 +10,22 @@ angular.module('SysApp').config(['$routeProvider', function ($routeProvider) {
             templateUrl: "Scripts/app/views/cupones/list.html"
         })
         .when("/cupones/new", {
-            controller: "EditarCuponesController",
-            templateUrl: "Scripts/app/views/cupones/new.html"
+            controller: "NuevoCuponController",
+            templateUrl: "Scripts/app/views/cupones/new.html",
+            resolve: {
+                cuponModel: ['CuponViewModel', function (cuponViewModel) {
+                    return cuponViewModel.getNew();
+                }]
+            }
         })
-        .when("/cupones/:cuponId/edit", {
-            controller: "EditarCuponesController",
-            templateUrl: "Scripts/app/views/cupones/edit.html"
+        .when("/cupones/:id", {
+            controller: "EditarCuponController",
+            templateUrl: "Scripts/app/views/cupones/edit.html",
+            resolve: {
+                cuponModel: ['CuponesService', '$route', function (cuponesService, $route) {
+                    return cuponesService.getCupon($route.current.params.id).$promise;
+                }]
+            }
         })
         .when("/index", {
             templateUrl: "Scripts/app/views/index.html"
@@ -38,6 +48,7 @@ angular
       toasterConfig['close-button'] = true;
       //toasterConfig['time-out'] = 5000;
       toasterConfig['position-class'] = 'toast-top-center';
+      toasterConfig['limit'] = 1;
     }]);
 
 

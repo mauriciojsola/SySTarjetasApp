@@ -33,33 +33,20 @@ namespace SySTarjetas.Api.Controllers
                 totalCount = cupones.Count;
 
                 listadoCupones = cupones.OrderBy(x => x.FechaCompra).Skip((pageNumber - 1) * pageSize).Take(pageSize).Select(
-                    x =>
-                        new CuponViewModel
-                        {
-                            Id = x.Id,
-                            Comercio = x.Comercio.RazonSocial,
-                            FechaCompra = x.FechaCompra.ToShortDateString(),
-                            FechaCompraParaOrdenar = x.FechaCompra,
-                            NumeroCupon = x.NumeroCupon,
-                            Importe = x.Importe,
-                            ImporteFormateado = x.Importe.ToString("N"),
-                            Cuotas = x.CantidadCuotas
-                        }).ToList();
+                    x => Mapper.Map<CuponViewModel>(x)).ToList();
             }
 
             return new PagedResponse<CuponViewModel>(listadoCupones.OrderBy(x => x.FechaCompraParaOrdenar).ToList(), pageNumber, pageSize, totalCount);
         }
 
         [HttpGet]
-        [Route("{cuponId}/details")]
-        public CuponViewModel GetCupon(int cuponId)
+        [Route("{id:int}")]
+        public CuponViewModel Get(int id)
         {
             var cuponViewModel = new CuponViewModel();
-            var cupon = TransaccionRepository.GetById(cuponId);
+            var cupon = TransaccionRepository.GetById(id);
             if (cupon != null)
-            {
                 cuponViewModel = Mapper.Map<CuponViewModel>(cupon);
-            }
             return cuponViewModel;
         }
 
@@ -69,9 +56,15 @@ namespace SySTarjetas.Api.Controllers
         {
             try
             {
-                SySTarjetasService.GrabarCupon(cupon.TarjetaId, DateTime.Parse(cupon.FechaCompra), cupon.ComercioId,
-                                                       cupon.NumeroCupon, cupon.Importe, cupon.Cuotas, "NADA");
+                if (cupon.Id > 0)
+                {
+                    SySTarjetasService.ActualizarCupon(cupon.Id, cupon.TarjetaId, DateTime.Parse(cupon.FechaCompra), cupon.ComercioId,
+                                                          cupon.NumeroCupon, cupon.Importe, cupon.Cuotas, "NADA");
+                    return SuccessResponse(new JsonResponse("Cupón actualizado correctamente"));
+                }
 
+                SySTarjetasService.GrabarCupon(cupon.TarjetaId, DateTime.Parse(cupon.FechaCompra), cupon.ComercioId,
+                    cupon.NumeroCupon, cupon.Importe, cupon.Cuotas, "NADA");
                 return SuccessResponse(new JsonResponse("Cupón grabado correctamente"));
             }
             catch (Exception ex)

@@ -5,10 +5,10 @@
         <toaster-container></toaster-container>
         <div class="row">
             <div class="col-sm-4 col-md-4 col-lg-4">
-                <div class="form-group" ng-class="{ 'has-error': cuponForm.$submitted && cuponForm.titular.$error.required}">
+                <div class="form-group" ng-class="{ 'has-error': cuponForm.$submitted && (cuponForm.titular.$error.required || cuponForm.titular.$invalid )}">
                     <label for="titular">Titular</label>
-                    <select id="titular" class="form-control" ng-model="currentCupon.titularId" ng-options="titular.Id as titular.FullName for titular in titulares track by titular.Id" ng-change="loadCards()"
-                            class="form-control" name="titular" required>
+                    <select id="titular" class="form-control" ng-model="currentCupon.titularId" ng-options="titular.Key as titular.Value for titular in titulares" 
+                            ng-change="loadCards()" ng-disabled="currentCupon.id>0" name="titular" required="">
                         <option value=''>Seleccione Titular</option>
                     </select>
                     <div class="help-block" ng-messages="cuponForm.titular.$error" ng-if="cuponForm.$submitted && cuponForm.titular.$error.required">
@@ -21,7 +21,8 @@
             <div class="col-sm-5 col-md-5 col-lg-5">
                 <div class="form-group" ng-class="{ 'has-error': cuponForm.$submitted && cuponForm.tarjeta.$error.required}">
                     <label for="tarjeta">Tarjeta</label>
-                    <select id="tarjeta" class="form-control" name="tarjeta" required="" ng-model="currentCupon.tarjetaId" ng-options="tarjeta.Id as tarjeta.FullDescription for tarjeta in tarjetas track by tarjeta.Id" ng-disabled="!tarjetas" ng-change="" class="form-control">
+                    <select id="tarjeta" class="form-control" name="tarjeta" required="" ng-model="currentCupon.tarjetaId" ng-options="tarjeta.Key as tarjeta.Value for tarjeta in tarjetas" 
+                            ng-disabled="!tarjetas || currentCupon.id>0" ng-change="" >
                         <option value=''>Seleccione Tarjeta</option>
                     </select>
                     <div class="help-block" ng-messages="cuponForm.tarjeta.$error" ng-if="cuponForm.$submitted && cuponForm.tarjeta.$error.required">
@@ -45,7 +46,7 @@
             <div class="col-sm-5 col-md-5 col-lg-5">
                 <div class="form-group" ng-class="{ 'has-error': cuponForm.$submitted && cuponForm.comercio.$error.required}">
                     <label for="comercio">Comercio</label>
-                    <select id="comercio" name="comercio" class="form-control" required="" ng-model="currentCupon.comercioId" ng-options="comercio.Id as comercio.RazonSocial for comercio in comercios track by comercio.Id" ng-disabled="!comercios" ng-change="" class="form-control">
+                    <select id="comercio" name="comercio" class="form-control" required="" ng-model="currentCupon.comercioId" ng-options="comercio.Key as comercio.Value for comercio in comercios" ng-disabled="!comercios" ng-change="" class="form-control">
                         <option value=''>Seleccione Comercio</option>
                     </select>
                     <div class="help-block" ng-messages="cuponForm.comercio.$error" ng-if="cuponForm.$submitted && cuponForm.comercio.$error.required">
@@ -89,6 +90,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <input type="submit" id="btnSave" name="btnSave" ng-click="saveCupon()" value="Grabar" class="btn btn-primary" />
+                <input type="button" id="btnTest" name="btnTest" ng-click="test()" value="test" class="btn btn-primary" />
             </div>
         </div>
     </form>

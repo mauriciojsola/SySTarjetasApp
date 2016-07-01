@@ -77,7 +77,7 @@ angular.module('SysApp').controller('ListCuponesController', ['$q', '$scope', '$
                             { field: 'Comercio', displayName: 'Razón Social', enableSorting: true },
                             { field: 'Cuotas', displayName: 'Cuotas', enableSorting: false },
                             { field: 'ImporteFormateado', displayName: 'Importe', enableSorting: false },
-                            { field: 'Id', displayName: 'Actions', cellTemplate: '<div class="ui-grid-cell-contents"><button class="btn btn-warning btn-xs" ng-click="grid.appScope.editCupon(row.entity.Id)"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit&nbsp;</button></div>' }
+                            { field: 'Id', displayName: 'Actions', cellTemplate: '<div class="ui-grid-cell-contents"><a href="#/cupones/{{row.entity.Id}}" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit&nbsp;</a></div>' }
                         ],
                         onRegisterApi: function (gridApi) {
                             $scope.gridApi = gridApi;
@@ -171,90 +171,25 @@ angular.module('SysApp').controller('ListCuponesController', ['$q', '$scope', '$
                 }
 ]);
 
-angular.module('SysApp').controller('EditarCuponesController', ['$scope', 'TitularesService', 'TarjetasService', 'CuponesService', 'ComerciosService', 'AlertService', 'Utils',
-    function ($scope, titularesService, tarjetasService, cuponesService, comerciosService, alertService, utils) {
-
-        $scope.resetForm = function() {
-            var now = new Date();
-            $scope.currentCupon = {
-                titularId: null,
-                tarjetaId: null,
-                comercioId: null,
-                selectedDate: now,
-                numeroCupon: '',
-                importe: '',
-                cuotas: ''
-            };
+angular.module('SysApp').controller('EditarCuponController', ['$scope', 'cuponModel',
+    function ($scope, cuponModel) {
+        $scope.cuponEdit = {
+            id: cuponModel.Id,
+            titularId: cuponModel.TitularId.toString(),
+            tarjetaId: cuponModel.TarjetaId.toString(),
+            comercioId: cuponModel.ComercioId.toString(),
+            selectedDate: cuponModel.FechaCompra,
+            numeroCupon: cuponModel.NumeroCupon,
+            importe: cuponModel.Importe,
+            cuotas: cuponModel.Cuotas
         };
 
-        $scope.titulares = [];
-        $scope.tarjetas = [];
-        $scope.comercios = [];
+    }]);
 
-        $scope.resetForm();
 
-        titularesService.listTitulares().then(
-                           function (result) {
-                               $scope.titulares = result;
-                               $scope.currentCupon.titularId = null;
-                               $scope.currentCupon.tarjetaId = null;
-                               $scope.loadCards();
-                           },
-                           function (error) {
-                               alert(error);
-                           }
-                       );
-
-        comerciosService.listComercios().then(
-                               function (result) {
-                                   $scope.comercios = result;
-                               },
-                               function (error) {
-                                   alert(error);
-                               }
-                           );
-
-        $scope.loadCards = function () {
-            var titularId = $scope.currentCupon.titularId;
-            if (titularId) {
-                $scope.tarjetas = tarjetasService.listTarjetas({ titularId: titularId }).then(
-                    function (result) {
-                        $scope.tarjetas = result;
-                    });
-            } else {
-                $scope.tarjetas = null;
-            }
-        };
-
-        $scope.saveCupon = function () {
-
-            if (!$scope.cuponForm.$valid)
-                return;
-
-            var cupon = {
-                TitularId: $scope.currentCupon.titularId,
-                TarjetaId: $scope.currentCupon.tarjetaId,
-                ComercioId: $scope.currentCupon.comercioId,
-                FechaCompra: $scope.currentCupon.selectedDate,
-                NumeroCupon: $scope.currentCupon.numeroCupon,
-                Importe: $scope.currentCupon.importe,
-                Cuotas: $scope.currentCupon.cuotas
-            }
-            cuponesService.saveCupon(cupon,
-                function (success) {
-                    var response = utils.parseResponse(success);
-                    alertService.showMessage(response);
-                    if (response.success) {
-                        $scope.resetForm();
-                        $scope.cuponForm.$setPristine();
-                    }
-                },
-                function (error) {
-                    var response = utils.parseResponse(error);
-                    alertService.showMessage(response);
-                });
-        };
-
+angular.module('SysApp').controller('NuevoCuponController', ['$scope', 'cuponModel',
+    function ($scope, cuponModel) {
+        $scope.cuponNew = cuponModel;
     }]);
 
 

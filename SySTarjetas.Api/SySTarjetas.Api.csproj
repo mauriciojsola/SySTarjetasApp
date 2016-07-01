@@ -117,6 +117,7 @@
     </Compile>
     <Compile Include="Models\TarjetaViewModel.cs" />
     <Compile Include="Models\ComercioViewModel.cs" />
+    <Compile Include="Models\KeyValueModel.cs" />
     <Compile Include="Models\TitularViewModel.cs" />
     <Compile Include="Models\CuponViewModel.cs" />
     <Compile Include="Models\PagedResponse.cs" />

@@ -12,7 +12,7 @@ namespace SySTarjetas.Api.Controllers
         public ITarjetaRepository TarjetaRepository { get; set; }
 
         [HttpGet]
-        [Route("list")]
+        [Route("list/titular/{titularId}")]
         public IList<TarjetaViewModel> List(int titularId)
         {
             if (titularId > -1)
@@ -30,6 +30,15 @@ namespace SySTarjetas.Api.Controllers
                 return tarjetasTitular.ToList();
             }
             return  new List<TarjetaViewModel>();
+        }
+
+        [HttpGet]
+        [Route("select/titular/{titularId}")]
+        public IEnumerable<KeyValueModel> Select(int titularId)
+        {
+            return TarjetaRepository.PorTitular(titularId).OrderBy(x => x.Banco.RazonSocial).ThenBy(x => x.TipoTarjeta.Descripcion).ToList()
+                .Select(x => new KeyValueModel { Key = x.Id.ToString(), Value = string.Format("{0} - {1} - [{2}]", x.Banco.RazonSocial, x.TipoTarjeta.Descripcion, x.NumeroTarjeta) });
+
         }
     }
 

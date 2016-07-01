@@ -157,7 +157,7 @@ angular.module('SysApp').directive('ngOnlyNumber', function () {
                     }
                 } catch (err) {
                 }
-                
+
             };
 
             var changeMaxlength = function (elem, ev) {
@@ -188,13 +188,117 @@ angular.module('SysApp').directive('ngOnlyNumber', function () {
 });
 
 
-angular.module('SysApp').directive('editCupon', ['', function () {
-    var currentMonth = new Date().getMonth();
+angular.module('SysApp').directive('editCupon', [function () {
     return {
         templateUrl: 'Scripts/app/views/cupones/cupon-form.html',
         scope: {
-            customerInfo: '=info'
-        }
+            currentCupon: '=cupon'
+        },
+        controller: ['$scope', 'TitularesService', 'TarjetasService', 'CuponesService', 'ComerciosService', 'AlertService', 'Utils',
+                    function ($scope, titularesService, tarjetasService, cuponesService, comerciosService, alertService, utils) {
+
+                        $scope.resetForm = function (lastTitular) {
+                            var now = new Date();
+                            $scope.currentCupon = {
+                                titularId: lastTitular,
+                                tarjetaId: '',
+                                comercioId: '',
+                                selectedDate: now,
+                                numeroCupon: null,
+                                importe: null,
+                                cuotas: null
+                            };
+                            $scope.loadCards();
+                        };
+
+                        $scope.init = function () {
+
+                            $scope.titulares = [];
+                            $scope.tarjetas = [];
+                            $scope.comercios = [];
+
+                            titularesService.selectTitulares().then(
+                                           function (result) {
+                                               $scope.titulares = result;
+                                               $scope.loadCards();
+                                           },
+                                           function (error) {
+                                               alert(error);
+                                           }
+                                       );
+
+                            comerciosService.selectComercios().then(
+                                                   function (result) {
+                                                       $scope.comercios = result;
+                                                   },
+                                                   function (error) {
+                                                       alert(error);
+                                                   }
+                                               );
+
+                        };
+
+                        $scope.loadCards = function () {
+                            var titularId = $scope.currentCupon.titularId;
+                            if (titularId) {
+                                $scope.tarjetas = tarjetasService.selectTarjetas({ titularId: titularId }).then(
+                                    function (result) {
+                                        $scope.tarjetas = result;
+                                    });
+                            } else {
+                                $scope.tarjetas = null;
+                            }
+                        };
+
+                        $scope.init();
+
+                        $scope.test = function () {
+                            var now = new Date();
+                            now.setDate(now.getDate() + 5);
+                            $scope.currentCupon = {
+                                titularId: '1',
+                                tarjetaId: '2',
+                                comercioId: '1',
+                                selectedDate: now,
+                                numeroCupon: 555,
+                                importe: 55,
+                                cuotas: 5
+                            };
+                        };
+
+                        $scope.saveCupon = function () {
+
+                            if (!$scope.cuponForm.$valid)
+                                return;
+
+                            var cupon = {
+                                Id: $scope.currentCupon.id,
+                                TitularId: $scope.currentCupon.titularId,
+                                TarjetaId: $scope.currentCupon.tarjetaId,
+                                ComercioId: $scope.currentCupon.comercioId,
+                                FechaCompra: $scope.currentCupon.selectedDate,
+                                NumeroCupon: $scope.currentCupon.numeroCupon,
+                                Importe: $scope.currentCupon.importe,
+                                Cuotas: $scope.currentCupon.cuotas
+                            }
+                            cuponesService.saveCupon(cupon,
+                                function (success) {
+                                    var response = utils.parseResponse(success);
+                                    alertService.showMessage(response);
+                                    if (response.success && $scope.currentCupon.id === 0) {
+                                        $scope.resetForm($scope.currentCupon.titularId);
+                                        $scope.cuponForm.$setPristine();
+                                        $scope.cuponForm.$setUntouched();
+                                    }
+                                },
+                                function (error) {
+                                    var response = utils.parseResponse(error);
+                                    alertService.showMessage(response);
+                                });
+                        };
+
+                    }],
+        replace: true
     }
 }]
 );
