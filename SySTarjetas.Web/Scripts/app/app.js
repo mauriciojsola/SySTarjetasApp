@@ -1,6 +1,7 @@
 ﻿'use strict';
 
-angular.module('SysApp', ['ngRoute', 'ngResource', 'ui.bootstrap', 'toaster', 'chieffancypants.loadingBar', 'ui.grid', 'ui.grid.pagination', 'angularModalService', 'mgcrea.ngStrap.datepicker', 'ngMessages', 'ngAnimate']);
+angular.module('SysApp', ['ngRoute', 'ngResource', 'ui.bootstrap', 'toaster', 'chieffancypants.loadingBar', 'ui.grid', 'ui.grid.pagination', 'angularModalService',
+    'mgcrea.ngStrap.datepicker', 'ngMessages', 'ngAnimate']);
 
 angular.module('SysApp').config(['$routeProvider', function ($routeProvider) {
 
