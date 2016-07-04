@@ -7,7 +7,7 @@
             <div class="col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group" ng-class="{ 'has-error': cuponForm.$submitted && (cuponForm.titular.$error.required || cuponForm.titular.$invalid )}">
                     <label for="titular">Titular</label>
-                    <select id="titular" class="form-control" ng-model="currentCupon.titularId" ng-options="titular.Key as titular.Value for titular in titulares" 
+                    <select id="titular" class="form-control" ng-model="currentCupon.titularId" ng-options="titular.Key as titular.Value for titular in titulares"
                             ng-change="loadCards()" ng-disabled="currentCupon.id>0" name="titular" required="">
                         <option value=''>Seleccione Titular</option>
                     </select>
@@ -21,8 +21,8 @@
             <div class="col-sm-5 col-md-5 col-lg-5">
                 <div class="form-group" ng-class="{ 'has-error': cuponForm.$submitted && cuponForm.tarjeta.$error.required}">
                     <label for="tarjeta">Tarjeta</label>
-                    <select id="tarjeta" class="form-control" name="tarjeta" required="" ng-model="currentCupon.tarjetaId" ng-options="tarjeta.Key as tarjeta.Value for tarjeta in tarjetas" 
-                            ng-disabled="!tarjetas || currentCupon.id>0" ng-change="" >
+                    <select id="tarjeta" class="form-control" name="tarjeta" required="" ng-model="currentCupon.tarjetaId" ng-options="tarjeta.Key as tarjeta.Value for tarjeta in tarjetas"
+                            ng-disabled="!tarjetas || currentCupon.id>0" ng-change="">
                         <option value=''>Seleccione Tarjeta</option>
                     </select>
                     <div class="help-block" ng-messages="cuponForm.tarjeta.$error" ng-if="cuponForm.$submitted && cuponForm.tarjeta.$error.required">
@@ -87,10 +87,12 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-xs-12">
+        <div class="row text-right">
+            <div class="col-lg-9 col-md-9 col-xs-9">
+                <a id="btnCancelar" href="#/cupones">Cancelar</a>
                 <input type="submit" id="btnSave" name="btnSave" ng-click="saveCupon()" value="Grabar" class="btn btn-primary" />
-                <input type="button" id="btnTest" name="btnTest" ng-click="test()" value="test" class="btn btn-primary" />
+            </div>
+            <div class="col-lg-3 col-md-3 col-xs-3">
             </div>
         </div>
     </form>
