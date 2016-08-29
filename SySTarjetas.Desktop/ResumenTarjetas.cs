@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Autofac;
 using Autofac.Core;
 using SySTarjetas.Core.Common;
+using SySTarjetas.Core.Infrastructure.Persistence;
 using SySTarjetas.Core.Repository;
 using SySTarjetas.Core.Service;
 using SySTarjetas.Desktop.Controls;
@@ -19,6 +20,7 @@ namespace SySTarjetas.Desktop
 
         public ITarjetaRepository TarjetaRepository { get; set; }
         public ITitularRepository TitularRepository { get; set; }
+        public IUnitOfWorkProvider UnitOfWorkProvider { get; set; }
 
         protected List<CuotasInfo> listadoCuotas;
         protected bool huboCambios { get; set; }
@@ -208,10 +210,15 @@ namespace SySTarjetas.Desktop
 
         private void ActualizarCuotasVerificadas()
         {
-            foreach (var cuota in listadoCuotas)
+            using (var uow = UnitOfWorkProvider.BeginUnitOfWork())
             {
-                SySTarjetasService.MarcarVerificacionCuota(cuota.Id, cuota.Verificado);
+                foreach (var cuota in listadoCuotas)
+                {
+                    SySTarjetasService.MarcarVerificacionCuota(cuota.Id, cuota.Verificado);
+                }
+                uow.Commit();
             }
+           
             MessageBox.Show("Verificaciones actualizadas", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             huboCambios = false;
         }
