@@ -86,16 +86,16 @@ namespace SySTarjetas.Desktop
                 var listadoCupones = cupones.Select(
                         x =>
                         new
-                            {
-                                Id = x.Id,
-                                RazonSocial = x.Comercio.RazonSocial,
-                                FechaCompra = x.FechaCompra.ToShortDateString(),
-                                FechaCompraParaOrdenar = x.FechaCompra,
-                                NumeroCupon = x.NumeroCupon,
-                                Importe = x.Importe,
-                                ImporteFormateado = x.Importe.ToString("N"),
-                                Cuotas = x.CantidadCuotas
-                            }).ToList();
+                        {
+                            Id = x.Id,
+                            RazonSocial = x.Comercio != null ? x.Comercio.RazonSocial : "[[DESCONOCIDO]]",
+                            FechaCompra = x.FechaCompra.ToShortDateString(),
+                            FechaCompraParaOrdenar = x.FechaCompra,
+                            NumeroCupon = x.NumeroCupon,
+                            Importe = x.Importe,
+                            ImporteFormateado = x.Importe.ToString("N"),
+                            Cuotas = x.CantidadCuotas
+                        }).ToList();
 
                 gridCupones.DataSource = listadoCupones.OrderBy(x => x.FechaCompraParaOrdenar);
                 gridCupones.Refresh();
@@ -263,8 +263,12 @@ namespace SySTarjetas.Desktop
                 using (var uow = UnitOfWorkProvider.BeginUnitOfWork())
                 {
                     SySTarjetasService.EliminarCupon(CuponSeleccionado);
-                    CargarCupones();
                     uow.Commit();
+                }
+
+                using (UnitOfWorkProvider.BeginUnitOfWork())
+                {
+                    CargarCupones();
                 }
             }
         }
